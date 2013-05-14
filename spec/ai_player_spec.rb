@@ -36,6 +36,14 @@ describe AIPlayer do
     end
   end
 
+  describe "placing cards in the top hand" do
+    it "should prefer to place low value cards in the top hand" do
+      @ai_player = AIPlayer.new
+      @ai_player.take '2D'
+      @ai_player.hands.first.should include '2D'
+    end
+  end
+
   describe "put_in_bottom?" do
     before :each do
       @ai_player = AIPlayer.new

@@ -30,10 +30,9 @@ class AIPlayer
       @bottom << card
     elsif put_in_middle? card
       @middle << card
+    else
+      @top << card
     end
-    # else
-    #   @bottom << card
-    # end
   end
 
   def value_of(card)
