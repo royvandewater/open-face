@@ -32,8 +32,10 @@ class AIPlayer
       @middle << card
     elsif @top.count < 3
       @top << card
-    else
+    elsif @middle.count < 5
       @middle << card
+    else
+      @bottom << card
     end
   end
 

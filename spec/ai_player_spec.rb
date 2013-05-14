@@ -41,15 +41,27 @@ describe AIPlayer do
     context "when the top hand is entirely full" do
       before :each do
         @ai_player.start ['2D', '2H', '2S']
-        @ai_player.take '2C'
       end
 
-      it 'should not end up in the top hand' do
+      it 'should not put a low value card in the top hand' do
+        @ai_player.take '2C'
         @ai_player.hands.first.should_not include '2C'
       end
 
-      it 'should end up in the middle hand' do
+      it 'should put a low value card in the middle hand' do
+        @ai_player.take '2C'
         @ai_player.hands[1].should include '2C'
+      end
+    end
+
+    context "when the top and middle hands are entirely full" do
+      before :each do
+        @ai_player.start ['2D', '2H', '2S', '3D', '3H', '3S', '3C', '3D']
+      end
+
+      it 'should put a low value card in the bottom hand' do
+        @ai_player.take '2C'
+        @ai_player.hands.last.should include '2C'
       end
     end
   end
