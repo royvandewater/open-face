@@ -34,7 +34,7 @@ class OpenFace
 
   def rank_hands!
     @players.each_with_index do |player, i|
-      top,middle,bottom = player.hand
+      top,middle,bottom = player.hands
       puts "Player #{i}"
       puts "T: #{top}"
       puts "M: #{middle}"

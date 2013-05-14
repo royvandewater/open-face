@@ -5,13 +5,18 @@ class AIPlayer
     @bottom = []
   end
 
-  def hand
+  def hands
     [@top, @middle, @bottom]
   end
 
   def put_in_bottom?(card)
     return false if @bottom.count >= 5
     value_of(card) > 9
+  end
+
+  def put_in_middle?(card)
+    return false if @middle.count >= 5
+    value_of(card) > 3
   end
 
   def start(initial_hand)
@@ -23,9 +28,9 @@ class AIPlayer
   def take(card)
     if put_in_bottom? card
       @bottom << card
+    elsif put_in_middle? card
+      @middle << card
     end
-    # elsif put_in_middle?
-    #   @middle << card
     # else
     #   @bottom << card
     # end

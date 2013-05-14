@@ -24,7 +24,15 @@ describe AIPlayer do
     it "should should prefer to place high value cards in the bottom" do
       @ai_player = AIPlayer.new
       @ai_player.take 'JD'
-      @ai_player.hand[2].should include 'JD'
+      @ai_player.hands.last.should include 'JD'
+    end
+  end
+
+  describe "placing cards in the middle hand" do
+    it "should prefer to place mid value cards in the middle hand" do
+      @ai_player = AIPlayer.new
+      @ai_player.take '7D'
+      @ai_player.hands[1].should include '7D'
     end
   end
 
@@ -50,6 +58,32 @@ describe AIPlayer do
 
       it 'should reject even high valued cards' do
         @ai_player.put_in_bottom?('JD').should be_false
+      end
+    end
+  end
+
+  describe "put_in_middle?" do
+    before :each do
+      @ai_player = AIPlayer.new
+    end
+
+    describe "when there is still room left in the middle hand" do
+      it "should return true if the card has a higher than 3 value" do
+        @ai_player.put_in_middle?('9S').should be_true
+      end
+
+      it "should return false when the card is a less than 3 value" do
+        @ai_player.put_in_middle?('2S').should be_false
+      end
+    end
+
+    describe "when there is no room left in the middle hand" do
+      before :each do
+        @ai_player.start(['7H', '7D', '7C', '7S', '6H'])
+      end
+
+      it "should reject even the 3-9 cards" do
+        @ai_player.put_in_middle?('6S').should be_false
       end
     end
   end
