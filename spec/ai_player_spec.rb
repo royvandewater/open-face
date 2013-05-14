@@ -29,10 +29,28 @@ describe AIPlayer do
   end
 
   describe "placing cards in the middle hand" do
-    it "should prefer to place mid value cards in the middle hand" do
+    before :each do
       @ai_player = AIPlayer.new
+    end
+
+    it "should prefer to place mid value cards in the middle hand" do
       @ai_player.take '7D'
       @ai_player.hands[1].should include '7D'
+    end
+
+    context "when the top hand is entirely full" do
+      before :each do
+        @ai_player.start ['2D', '2H', '2S']
+        @ai_player.take '2C'
+      end
+
+      it 'should not end up in the top hand' do
+        @ai_player.hands.first.should_not include '2C'
+      end
+
+      it 'should end up in the middle hand' do
+        @ai_player.hands[1].should include '2C'
+      end
     end
   end
 

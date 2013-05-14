@@ -30,8 +30,10 @@ class AIPlayer
       @bottom << card
     elsif put_in_middle? card
       @middle << card
-    else
+    elsif @top.count < 3
       @top << card
+    else
+      @middle << card
     end
   end
 
