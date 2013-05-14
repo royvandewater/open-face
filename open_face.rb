@@ -1,5 +1,8 @@
 #!/usr/bin/env ruby
 
+require_relative 'deck'
+require_relative 'ai_player'
+
 class OpenFace
   def initialize(options={})
     @deck = options[:deck]
@@ -25,5 +28,24 @@ class OpenFace
     8.times do
       deal_turn!
     end
+
+    rank_hands!
   end
+
+  def rank_hands!
+    @players.each_with_index do |player, i|
+      top,middle,bottom = player.hand
+      puts "Player #{i}"
+      puts "T: #{top}"
+      puts "M: #{middle}"
+      puts "B: #{bottom}"
+    end
+  end
+end
+
+if __FILE__ == $0
+  @deck      = Deck.new
+  @player1   = AIPlayer.new
+  @open_face = OpenFace.new :players => [@player1], :deck => @deck
+  @open_face.play!
 end
