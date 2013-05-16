@@ -46,6 +46,10 @@ end
 if __FILE__ == $0
   @deck      = Deck.new
   @player1   = AIPlayer.new
-  @open_face = OpenFace.new :players => [@player1], :deck => @deck
+  @player2   = AIPlayer.new
+  @player3   = AIPlayer.new
+  @player4   = AIPlayer.new
+  @player5   = AIPlayer.new
+  @open_face = OpenFace.new :players => [@player1, @player2, @player3, @player4], :deck => @deck
   @open_face.play!
 end
