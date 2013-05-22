@@ -1,4 +1,5 @@
 require 'active_support/core_ext/object' # provides try and other goodies :-)
+require 'active_support/core_ext/array' # provides try and other goodies :-)
 
 class Hand
   def initialize(options={})
@@ -39,7 +40,7 @@ class Hand
   end
 
   def two_pair?
-    pairs.keys.at 1
+    pairs.keys.second
   end
 
   def full_house?
