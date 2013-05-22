@@ -1,3 +1,5 @@
+require 'active_support/core_ext/object' # provides try and other goodies :-)
+
 class Hand
   def initialize(options={})
     @cards = []
@@ -25,12 +27,24 @@ class Hand
   end
 
   def two_of_a_kind?
-    @cards.group_by do |card|
-      value_of card
-    end.detect do |value, cards|
-      cards.count == 2
-    end
+    n_of_a_kind 2
   end
+
+  def three_of_a_kind?
+    n_of_a_kind 3
+  end
+
+  def four_of_a_kind?
+    n_of_a_kind 4
+  end
+
+  def two_pair?
+    pairs.keys.at 1
+  end
+
+  def full_house?
+    two_of_a_kind? && three_of_a_kind?
+  end 
 
   def value_of(card)
     value = card[0..-2]
@@ -49,6 +63,25 @@ class Hand
       1
     else
       -1
+    end
+  end
+
+  private
+  def grouped_cards
+    @cards.group_by do |card|
+      value_of card
+    end
+  end
+
+  def n_of_a_kind(n)
+    grouped_cards.detect do |value, cards|
+      cards.count == n
+    end.try :first
+  end
+
+  def pairs
+    grouped_cards.select do |value, cards|
+      cards.count == 2
     end
   end
 end

@@ -63,9 +63,42 @@ describe Hand do
   end
 
   describe "two of a kind?" do
-    it "should return true if there are two of a kind" do
-      @hand = Hand.new :size => 3, :cards => ['2H', '2D', '3S']
-      @hand.two_of_a_kind?.should be_true
+    it "should return the face value of the cards if there are two of a kind" do
+      @hand = Hand.new :size => 2, :cards => ['2H', '2D']
+      @hand.two_of_a_kind?.should == 2
+    end
+  end
+
+  describe "three of a kind?" do
+    it "should return the face value of the cards if there are three of a kind" do
+      @hand = Hand.new :size => 3, :cards => ['2H', '2D', '2S']
+      @hand.three_of_a_kind?.should == 2
+    end
+  end
+
+  describe "four of a kind?" do
+    it "should return the face value of the cards if there are four of a kind" do
+      @hand = Hand.new :size => 4, :cards => ['2H', '2D', '2S', '2C']
+      @hand.four_of_a_kind?.should == 2
+    end
+  end
+
+  describe "two pair?" do
+    it "should return the face value of the higher of the two pair" do
+      @hand = Hand.new :size => 4, :cards => ['2H', '2D', '3S', '3C']
+      @hand.two_pair?.should == 3
+    end
+
+    it "should not return true if all I have is a two of a kind" do
+      @hand = Hand.new :size => 4, :cards => ['2H', '2D', '3S', '4C']
+      @hand.two_pair?.should be_nil
+    end
+  end
+
+  describe "full house?" do
+    it "should return true if there are three of a kind" do
+      @hand = Hand.new :size => 5, :cards => ['2H', '2D', '2S', '3H', '3D']
+      @hand.full_house?.should be_true
     end
   end
 
