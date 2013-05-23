@@ -91,6 +91,51 @@ describe Hand do
       end
     end
 
+    context "when hand1 has a better three of a kind than hand2" do
+      before :each do
+        @hand1 = Hand.new :size => 5, :cards => ['3H', '3S', '3C', '5D', '6C']
+        @hand2 = Hand.new :size => 5, :cards => ['2H', '2S', '2C', '9C', '5C']
+      end
+
+      it "should return 1 when hand1 is space shipped with hand2" do
+        (@hand1 <=> @hand2).should == 1
+      end
+
+      it "should return -1 when hand2 is space shipped with hand1" do
+        (@hand2 <=> @hand1).should == -1
+      end
+    end
+
+    context "when hand1 has a four of a kind" do
+      before :each do
+        @hand1 = Hand.new :size => 5, :cards => ['3H', '3S', '3C', '3D', '6C']
+        @hand2 = Hand.new :size => 5, :cards => ['2H', '2S', '1C', '9C', '5C']
+      end
+
+      it "should return 1 when hand1 is space shipped with hand2" do
+        (@hand1 <=> @hand2).should == 1
+      end
+
+      it "should return -1 when hand2 is space shipped with hand1" do
+        (@hand2 <=> @hand1).should == -1
+      end
+    end
+
+    context "when hand1 has a better four of a kind than hand2" do
+      before :each do
+        @hand1 = Hand.new :size => 5, :cards => ['3H', '3S', '3C', '3D', '6C']
+        @hand2 = Hand.new :size => 5, :cards => ['2H', '2S', '2C', '2D', '5C']
+      end
+
+      it "should return 1 when hand1 is space shipped with hand2" do
+        (@hand1 <=> @hand2).should == 1
+      end
+
+      it "should return -1 when hand2 is space shipped with hand1" do
+        (@hand2 <=> @hand1).should == -1
+      end
+    end
+
     context "when hand1 has three of a kind and hand2 has a full house" do
       before :each do
         @hand1 = Hand.new :size => 5, :cards => ['3H', '3S', '3C', '5D', '6C']
