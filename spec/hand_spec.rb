@@ -316,6 +316,21 @@ describe Hand do
       end
     end
 
+    context "when hand1 has a straight flush and hand2 has a straight" do
+      before :each do
+        @hand1 = Hand.new :size => 5, :cards => ['3H', '4H', '5H', '6H', '7H']
+        @hand2 = Hand.new :size => 5, :cards => ['2C', '7C', 'QC', '9C', '10C']
+      end
+
+      it "should return 1 when hand1 is space shipped with hand2" do
+        (@hand1 <=> @hand2).should == 1
+      end
+
+      it "should return -1 when hand2 is space shipped with hand1" do
+        (@hand2 <=> @hand1).should == -1
+      end
+    end
+
     context "when hand1 has a royal flush and who cares what hand2 has" do
       before :each do
         @hand1 = Hand.new :size => 5, :cards => ['10C', 'JC', 'QC', 'KC', 'AC']
@@ -388,6 +403,13 @@ describe Hand do
     it "should return nil if there is not a flush" do
       @hand = Hand.new :size => 5, :cards => ['4C', '5H', '6H', '7H', 'QH']
       @hand.flush.should be_nil
+    end
+  end
+
+  describe "straight flush" do
+    it "should return the high card if there is a straight flush" do
+      @hand = Hand.new :size => 5, :cards => ['3C', '4C', '5C', '6C', '7C']
+      @hand.straight_flush.should == 7
     end
   end
 

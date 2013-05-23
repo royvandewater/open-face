@@ -2,8 +2,8 @@ require 'active_support/core_ext/object' # provides try and other goodies :-)
 require 'active_support/core_ext/array' # provides try and other goodies :-)
 
 class Hand
-  HAND_ORDER = [:royal_flush, :four_of_a_kind, :full_house, :flush, :straight, 
-                :three_of_a_kind, :two_pair, :two_of_a_kind, :high_card]
+  HAND_ORDER = [:royal_flush, :straight_flush, :four_of_a_kind, :full_house, :flush, 
+                :straight, :three_of_a_kind, :two_pair, :two_of_a_kind, :high_card]
 
   def initialize(options={})
     @cards = []
@@ -53,6 +53,10 @@ class Hand
 
   def straight
     high_card if card_count - 1 == high_card - values.min
+  end
+
+  def straight_flush
+    high_card if straight && flush
   end
 
   def suites
