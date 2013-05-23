@@ -61,6 +61,21 @@ describe Hand do
       end
     end
 
+    context "when hand1 has a better high card than hand2" do
+      before :each do
+        @hand1 = Hand.new :size => 5, :cards => ['3H', '4S', '5C', '6D', 'JC']
+        @hand2 = Hand.new :size => 5, :cards => ['3H', '4S', '5C', '6C', '8C']
+      end
+
+      it "should return 1 when hand1 is space shipped with hand2" do
+        (@hand1 <=> @hand2).should == 1
+      end
+
+      it "should return -1 when hand2 is space shipped with hand1" do
+        (@hand2 <=> @hand1).should == -1
+      end
+    end
+
     context "when hand1 has a better two of a kind than hand2" do
       before :each do
         @hand1 = Hand.new :size => 5, :cards => ['3H', '3S', '4C', '5D', '6C']

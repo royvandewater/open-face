@@ -70,6 +70,14 @@ class Hand
       two_pair.to_i <=> hand.two_pair.to_i
     elsif two_of_a_kind or hand.two_of_a_kind
       two_of_a_kind.to_i <=> hand.two_of_a_kind.to_i
+    else
+      values.max <=> hand.values.max
+    end
+  end
+
+  def values
+    @cards.map do |card|
+      value_of card
     end
   end
 
