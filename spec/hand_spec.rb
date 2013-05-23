@@ -285,6 +285,36 @@ describe Hand do
         (@hand2 <=> @hand1).should == -1
       end
     end
+
+    context "when hand1 has a flush and hand2 has a full house" do
+      before :each do
+        @hand1 = Hand.new :size => 5, :cards => ['3H', '7H', '2H', '8H', 'JH']
+        @hand2 = Hand.new :size => 5, :cards => ['2H', '2S', '2C', '5C', '5C']
+      end
+
+      it "should return -1 when hand1 is space shipped with hand2" do
+        (@hand1 <=> @hand2).should == -1
+      end
+
+      it "should return 1 when hand2 is space shipped with hand1" do
+        (@hand2 <=> @hand1).should == 1
+      end
+    end
+
+    context "when hand1 has a flush and hand2 has a straight" do
+      before :each do
+        @hand1 = Hand.new :size => 5, :cards => ['3H', '7H', '2H', '8H', 'JH']
+        @hand2 = Hand.new :size => 5, :cards => ['2H', '3S', '4C', '5C', '6C']
+      end
+
+      it "should return 1 when hand1 is space shipped with hand2" do
+        (@hand1 <=> @hand2).should == 1
+      end
+
+      it "should return -1 when hand2 is space shipped with hand1" do
+        (@hand2 <=> @hand1).should == -1
+      end
+    end
   end
 
   describe "two of a kind" do
@@ -338,6 +368,11 @@ describe Hand do
     it "should return the high card if there is a flush" do
       @hand = Hand.new :size => 5, :cards => ['4H', '5H', '6H', '7H', 'QH']
       @hand.flush.should == 12
+    end
+
+    it "should return nil if there is not a flush" do
+      @hand = Hand.new :size => 5, :cards => ['4C', '5H', '6H', '7H', 'QH']
+      @hand.flush.should be_nil
     end
   end
 

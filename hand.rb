@@ -28,7 +28,7 @@ class Hand
   end
 
   def flush
-    return nil unless card_count == 5 or suites.uniq.count != 1
+    return nil unless card_count == 5 and suites.uniq.count == 1
     values.max
   end
 
@@ -45,7 +45,9 @@ class Hand
   end
 
   def suites
-    @cards.map &:last
+    @cards.map do |card|
+      card[-1]
+    end
   end
 
   def three_of_a_kind
@@ -83,6 +85,8 @@ class Hand
       four_of_a_kind.to_i <=> hand.four_of_a_kind.to_i
     elsif full_house or hand.full_house
       full_house.to_i <=> hand.full_house.to_i
+    elsif flush or hand.flush
+      flush.to_i <=> hand.flush.to_i
     elsif straight or hand.straight
       straight.to_i <=> hand.straight.to_i
     elsif three_of_a_kind or hand.three_of_a_kind
