@@ -181,6 +181,21 @@ describe Hand do
       end
     end
 
+    context "when hand1 has two pair and hand2 has a full house" do
+      before :each do
+        @hand1 = Hand.new :size => 5, :cards => ['3H', '3S', '6C', '5D', '6C']
+        @hand2 = Hand.new :size => 5, :cards => ['2H', '2S', '2C', '5C', '5C']
+      end
+
+      it "should return -1 when hand1 is space shipped with hand2" do
+        (@hand1 <=> @hand2).should == -1
+      end
+
+      it "should return 1 when hand2 is space shipped with hand1" do
+        (@hand2 <=> @hand1).should == 1
+      end
+    end
+
     context "when hand1 has four of a kind and hand2 has a full house" do
       before :each do
         @hand1 = Hand.new :size => 5, :cards => ['3H', '3S', '3C', '3D', '6C']
