@@ -2,7 +2,7 @@ require 'active_support/core_ext/object' # provides try and other goodies :-)
 require 'active_support/core_ext/array' # provides try and other goodies :-)
 
 class Hand
-  HAND_ORDER = [:four_of_a_kind, :full_house, :flush, :straight, 
+  HAND_ORDER = [:royal_flush, :four_of_a_kind, :full_house, :flush, :straight, 
                 :three_of_a_kind, :two_pair, :two_of_a_kind, :high_card]
 
   def initialize(options={})
@@ -45,6 +45,10 @@ class Hand
 
   def high_card
     values.max
+  end
+
+  def royal_flush
+    14 if straight and flush and high_card == 14
   end
 
   def straight

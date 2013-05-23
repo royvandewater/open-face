@@ -315,6 +315,21 @@ describe Hand do
         (@hand2 <=> @hand1).should == -1
       end
     end
+
+    context "when hand1 has a royal flush and who cares what hand2 has" do
+      before :each do
+        @hand1 = Hand.new :size => 5, :cards => ['10C', 'JC', 'QC', 'KC', 'AC']
+        @hand2 = Hand.new :size => 5, :cards => ['2H', '2S', '2C', '5C', '5C']
+      end
+
+      it "should return 1 when hand1 is space shipped with hand2" do
+        (@hand1 <=> @hand2).should == 1
+      end
+
+      it "should return -1 when hand2 is space shipped with hand1" do
+        (@hand2 <=> @hand1).should == -1
+      end
+    end
   end
 
   describe "two of a kind" do
@@ -373,6 +388,13 @@ describe Hand do
     it "should return nil if there is not a flush" do
       @hand = Hand.new :size => 5, :cards => ['4C', '5H', '6H', '7H', 'QH']
       @hand.flush.should be_nil
+    end
+  end
+
+  describe "royal flush" do
+    it "should return a 14 if there is a royal flush" do
+      @hand = Hand.new :size => 5, :cards => ['10C', 'JC', 'QC', 'KC', 'AC']
+      @hand.royal_flush.should == 14
     end
   end
 
