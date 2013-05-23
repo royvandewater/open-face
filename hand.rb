@@ -27,24 +27,24 @@ class Hand
     @cards.count
   end
 
-  def two_of_a_kind?
+  def two_of_a_kind
     n_of_a_kind 2
   end
 
-  def three_of_a_kind?
-    n_of_a_kind 3
+  def three_of_a_kind
+    n_of_a_kind(3) unless two_of_a_kind
   end
 
-  def four_of_a_kind?
+  def four_of_a_kind
     n_of_a_kind 4
   end
 
-  def two_pair?
+  def two_pair
     pairs.keys.second
   end
 
-  def full_house?
-    two_of_a_kind? && three_of_a_kind?
+  def full_house
+    n_of_a_kind(2) && n_of_a_kind(3)
   end 
 
   def value_of(card)
@@ -60,10 +60,12 @@ class Hand
   end
 
   def <=>(hand)
-    if two_of_a_kind?
-      1
-    else
-      -1
+    if full_house or hand.full_house
+      full_house.to_i <=> hand.full_house.to_i
+    elsif three_of_a_kind or hand.three_of_a_kind
+      three_of_a_kind.to_i <=> hand.three_of_a_kind.to_i
+    elsif two_of_a_kind or hand.two_of_a_kind
+      two_of_a_kind.to_i <=> hand.two_of_a_kind.to_i
     end
   end
 
