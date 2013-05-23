@@ -2,6 +2,9 @@ require 'active_support/core_ext/object' # provides try and other goodies :-)
 require 'active_support/core_ext/array' # provides try and other goodies :-)
 
 class Hand
+  HAND_ORDER = [:four_of_a_kind, :full_house, :flush, :straight, 
+                :three_of_a_kind, :two_pair, :two_of_a_kind, :high_card]
+
   def initialize(options={})
     @cards = []
     @size  = options[:size]
@@ -29,7 +32,7 @@ class Hand
 
   def flush
     return nil unless card_count == 5 and suites.uniq.count == 1
-    values.max
+    high_card
   end
 
   def four_of_a_kind
@@ -40,8 +43,12 @@ class Hand
     n_of_a_kind(2) && n_of_a_kind(3)
   end 
 
+  def high_card
+    values.max
+  end
+
   def straight
-    values.max if card_count - 1 == values.max - values.min
+    high_card if card_count - 1 == high_card - values.min
   end
 
   def suites
@@ -81,22 +88,10 @@ class Hand
   end
 
   def <=>(hand)
-    if four_of_a_kind or hand.four_of_a_kind
-      four_of_a_kind.to_i <=> hand.four_of_a_kind.to_i
-    elsif full_house or hand.full_house
-      full_house.to_i <=> hand.full_house.to_i
-    elsif flush or hand.flush
-      flush.to_i <=> hand.flush.to_i
-    elsif straight or hand.straight
-      straight.to_i <=> hand.straight.to_i
-    elsif three_of_a_kind or hand.three_of_a_kind
-      three_of_a_kind.to_i <=> hand.three_of_a_kind.to_i
-    elsif two_pair or hand.two_pair
-      two_pair.to_i <=> hand.two_pair.to_i
-    elsif two_of_a_kind or hand.two_of_a_kind
-      two_of_a_kind.to_i <=> hand.two_of_a_kind.to_i
-    else
-      values.max <=> hand.values.max
+    HAND_ORDER.each do |hand_type|
+      if send(hand_type) or hand.send(hand_type)
+        return send(hand_type).to_i <=> hand.send(hand_type).to_i
+      end
     end
   end
 
