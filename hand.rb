@@ -1,5 +1,5 @@
 require 'active_support/core_ext/object' # provides try and other goodies :-)
-require 'active_support/core_ext/array' # provides try and other goodies :-)
+require 'active_support/core_ext/array' # provides second and other goodies :-)
 
 class Hand
   HAND_ORDER = [:royal_flush, :straight_flush, :four_of_a_kind, :full_house, :flush, 
@@ -72,6 +72,10 @@ class Hand
 
   def three_of_a_kind
     n_of_a_kind(3) unless two_of_a_kind
+  end
+
+  def to_s
+    @cards.to_s
   end
 
   def two_of_a_kind

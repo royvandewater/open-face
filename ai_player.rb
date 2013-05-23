@@ -1,7 +1,9 @@
+require 'active_support/core_ext/object' # provides try and other goodies :-)
 require_relative 'hand'
 
 class AIPlayer
-  def initialize
+  def initialize(options={})
+    @name = options[:name]
     @top = Hand.new    :size => 3
     @middle = Hand.new :size => 5
     @bottom = Hand.new :size => 5
@@ -39,6 +41,10 @@ class AIPlayer
     else
       @bottom << card
     end
+  end
+
+  def to_s
+    @name.try(:to_s) || self
   end
 
   def value_of(card)
