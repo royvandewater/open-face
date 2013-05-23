@@ -334,6 +334,13 @@ describe Hand do
     end
   end
 
+  describe "flush" do
+    it "should return the high card if there is a flush" do
+      @hand = Hand.new :size => 5, :cards => ['4H', '5H', '6H', '7H', 'QH']
+      @hand.flush.should == 12
+    end
+  end
+
   describe "value of a card" do
     before :each do
       @hand = Hand.new

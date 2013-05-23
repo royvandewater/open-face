@@ -27,6 +27,11 @@ class Hand
     @cards.count
   end
 
+  def flush
+    return nil unless card_count == 5 or suites.uniq.count != 1
+    values.max
+  end
+
   def four_of_a_kind
     n_of_a_kind 4
   end
@@ -37,6 +42,10 @@ class Hand
 
   def straight
     values.max if card_count - 1 == values.max - values.min
+  end
+
+  def suites
+    @cards.map &:last
   end
 
   def three_of_a_kind
