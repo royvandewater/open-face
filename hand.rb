@@ -60,7 +60,9 @@ class Hand
   end
 
   def <=>(hand)
-    if four_of_a_kind or hand.four_of_a_kind
+    if two_pair or hand.two_pair
+      two_pair.to_i <=> hand.two_pair.to_i
+    elsif four_of_a_kind or hand.four_of_a_kind
       four_of_a_kind.to_i <=> hand.four_of_a_kind.to_i
     elsif full_house or hand.full_house
       full_house.to_i <=> hand.full_house.to_i
