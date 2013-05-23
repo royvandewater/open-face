@@ -181,9 +181,69 @@ describe Hand do
       end
     end
 
+    context "when hand1 has a straight" do
+      before :each do
+        @hand1 = Hand.new :size => 5, :cards => ['2H', '3S', '4C', '5D', '6C']
+        @hand2 = Hand.new :size => 5, :cards => ['3H', '3S', '1C', '9C', '5C']
+      end
+
+      it "should return 1 when hand1 is space shipped with hand2" do
+        (@hand1 <=> @hand2).should == 1
+      end
+
+      it "should return -1 when hand2 is space shipped with hand1" do
+        (@hand2 <=> @hand1).should == -1
+      end
+    end
+
+    context "when hand1 has a better straight than hand2" do
+      before :each do
+        @hand1 = Hand.new :size => 5, :cards => ['7H', '8S', '9C', '10D', 'JC']
+        @hand2 = Hand.new :size => 5, :cards => ['3H', '4S', '5C', '6C', '7C']
+      end
+
+      it "should return 1 when hand1 is space shipped with hand2" do
+        (@hand1 <=> @hand2).should == 1
+      end
+
+      it "should return -1 when hand2 is space shipped with hand1" do
+        (@hand2 <=> @hand1).should == -1
+      end
+    end
+
     context "when hand1 has three of a kind and hand2 has a full house" do
       before :each do
         @hand1 = Hand.new :size => 5, :cards => ['3H', '3S', '3C', '5D', '6C']
+        @hand2 = Hand.new :size => 5, :cards => ['2H', '2S', '2C', '5C', '5C']
+      end
+
+      it "should return -1 when hand1 is space shipped with hand2" do
+        (@hand1 <=> @hand2).should == -1
+      end
+
+      it "should return 1 when hand2 is space shipped with hand1" do
+        (@hand2 <=> @hand1).should == 1
+      end
+    end
+
+    context "when hand1 has a straight and hand2 has a three of a kind" do
+      before :each do
+        @hand1 = Hand.new :size => 5, :cards => ['3H', '4S', '5C', '6D', '7C']
+        @hand2 = Hand.new :size => 5, :cards => ['2H', '2S', '2C', '8C', '5C']
+      end
+
+      it "should return 1 when hand1 is space shipped with hand2" do
+        (@hand1 <=> @hand2).should == 1
+      end
+
+      it "should return -1 when hand2 is space shipped with hand1" do
+        (@hand2 <=> @hand1).should == -1
+      end
+    end
+
+    context "when hand1 has a straight and hand2 has a full house" do
+      before :each do
+        @hand1 = Hand.new :size => 5, :cards => ['3H', '4S', '5D', '6D', '7C']
         @hand2 = Hand.new :size => 5, :cards => ['2H', '2S', '2C', '5C', '5C']
       end
 
@@ -261,9 +321,16 @@ describe Hand do
   end
 
   describe "full house" do
-    it "should return true if there are is a full house" do
+    it "should return the value of the full house" do
       @hand = Hand.new :size => 5, :cards => ['2H', '2D', '2S', '3H', '3D']
       @hand.full_house.should == 2
+    end
+  end
+
+  describe "straight" do
+    it "should return the high card if there is a straight" do
+      @hand = Hand.new :size => 5, :cards => ['4H', '5D', '6S', '7H', '8D']
+      @hand.straight.should == 8
     end
   end
 

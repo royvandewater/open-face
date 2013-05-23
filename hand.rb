@@ -27,25 +27,29 @@ class Hand
     @cards.count
   end
 
-  def two_of_a_kind
-    n_of_a_kind 2
+  def four_of_a_kind
+    n_of_a_kind 4
+  end
+
+  def full_house
+    n_of_a_kind(2) && n_of_a_kind(3)
+  end 
+
+  def straight
+    values.max if card_count - 1 == values.max - values.min
   end
 
   def three_of_a_kind
     n_of_a_kind(3) unless two_of_a_kind
   end
 
-  def four_of_a_kind
-    n_of_a_kind 4
+  def two_of_a_kind
+    n_of_a_kind 2
   end
 
   def two_pair
     pairs.keys.second
   end
-
-  def full_house
-    n_of_a_kind(2) && n_of_a_kind(3)
-  end 
 
   def value_of(card)
     value = card[0..-2]
@@ -59,11 +63,19 @@ class Hand
     end
   end
 
+  def values
+    @cards.map do |card|
+      value_of card
+    end
+  end
+
   def <=>(hand)
     if four_of_a_kind or hand.four_of_a_kind
       four_of_a_kind.to_i <=> hand.four_of_a_kind.to_i
     elsif full_house or hand.full_house
       full_house.to_i <=> hand.full_house.to_i
+    elsif straight or hand.straight
+      straight.to_i <=> hand.straight.to_i
     elsif three_of_a_kind or hand.three_of_a_kind
       three_of_a_kind.to_i <=> hand.three_of_a_kind.to_i
     elsif two_pair or hand.two_pair
@@ -72,12 +84,6 @@ class Hand
       two_of_a_kind.to_i <=> hand.two_of_a_kind.to_i
     else
       values.max <=> hand.values.max
-    end
-  end
-
-  def values
-    @cards.map do |card|
-      value_of card
     end
   end
 
