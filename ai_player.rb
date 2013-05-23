@@ -1,8 +1,10 @@
+require_relative 'hand'
+
 class AIPlayer
   def initialize
-    @top = []
-    @middle = []
-    @bottom = []
+    @top = Hand.new    :size => 3
+    @middle = Hand.new :size => 5
+    @bottom = Hand.new :size => 5
   end
 
   def hands

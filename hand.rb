@@ -16,9 +16,10 @@ class Hand
   end
 
   def add(card)
-    return false unless card_count < @size
+    return false unless count < @size
     @cards << card
   end
+  alias_method :<<, :add
 
   def bulk_add(cards)
     cards.each do |card|
@@ -26,12 +27,12 @@ class Hand
     end
   end
 
-  def card_count
+  def count
     @cards.count
   end
 
   def flush
-    return nil unless card_count == 5 and suites.uniq.count == 1
+    return nil unless count == 5 and suites.uniq.count == 1
     high_card
   end
 
@@ -47,12 +48,16 @@ class Hand
     values.max
   end
 
+  def include?(card)
+    @cards.include? card
+  end
+
   def royal_flush
     14 if straight and flush and high_card == 14
   end
 
   def straight
-    high_card if card_count - 1 == high_card - values.min
+    high_card if count - 1 == high_card - values.min
   end
 
   def straight_flush

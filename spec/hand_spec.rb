@@ -9,7 +9,7 @@ describe Hand do
 
     it "should take a set of cards to bootstrap itself with" do
       @hand = Hand.new(:size => 5, :cards => ['H2', 'H5'])
-      @hand.card_count.should == 2
+      @hand.count.should == 2
     end
 
     it "should throw an exception if initialized with more cards than its capacity" do
@@ -34,14 +34,14 @@ describe Hand do
     it "should store cards that have been added" do
       @hand = Hand.new :size => 5
       @hand.add '2H'
-      @hand.card_count.should == 1
+      @hand.count.should == 1
     end
 
     it "should be able to store more than one card" do
       @hand = Hand.new :size => 5
       @hand.add '2H'
       @hand.add '4H'
-      @hand.card_count.should == 2
+      @hand.count.should == 2
     end
   end
 
