@@ -3,6 +3,7 @@
 require 'active_support/core_ext/array' # provides second and other goodies :-)
 require_relative 'deck'
 require_relative 'ai_player'
+require_relative 'dumb_player'
 
 class OpenFace
   def initialize(options={})
@@ -37,28 +38,26 @@ class OpenFace
     8.times do
       deal_turn!
     end
-
-    rank_hands!
   end
 
 
-  def rank_hands!
-
-
+  def print_results!
     @players.each do |player|
       top,middle,bottom = player.hands
-      puts player
+      puts "\n#{player}"
       puts "T: #{top}"
       puts "M: #{middle}"
       puts "B: #{bottom}"
     end
 
-    puts "Misset Players"
+    puts "\nMisset Players"
+    puts "--------------"
     misset_players.each do |player|
       puts player
     end
 
-    puts "Winners"
+    puts "\nWinners"
+    puts "-------"
 
     top_player, top_hand       = top_winner
     middle_player, middle_hand = middle_winner
@@ -95,10 +94,11 @@ end
 
 if __FILE__ == $0
   @deck      = Deck.new
-  @player1   = AIPlayer.new :name => 'Player 1'
-  @player2   = AIPlayer.new :name => 'Player 2'
-  @player3   = AIPlayer.new :name => 'Player 3'
-  @player4   = AIPlayer.new :name => 'Player 4'
+  @player1   = DumbPlayer.new :name => 'Du Player 1'
+  @player2   = DumbPlayer.new :name => 'Du Player 2'
+  @player3   = AIPlayer.new :name =>   'AI Player 3'
+  @player4   = AIPlayer.new :name =>   'AI Player 4'
   @open_face = OpenFace.new :players => [@player1, @player2, @player3, @player4], :deck => @deck
   @open_face.play!
+  @open_face.print_results!
 end

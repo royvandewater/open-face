@@ -1,7 +1,7 @@
 require 'active_support/core_ext/object' # provides try and other goodies :-)
 require_relative 'hand'
 
-class AIPlayer
+class DumbPlayer
   def initialize(options={})
     @name = options[:name]
     @top = Hand.new    :size => 3
@@ -19,12 +19,12 @@ class AIPlayer
 
   def put_in_bottom?(card)
     return false if @bottom.count >= 5
-    value_of(card) > 9
+    value_of(card) >= 10
   end
 
   def put_in_middle?(card)
     return false if @middle.count >= 5
-    value_of(card) > 3
+    value_of(card) >= 5
   end
 
   def set
