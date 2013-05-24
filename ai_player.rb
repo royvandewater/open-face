@@ -1,3 +1,4 @@
+require 'debugger'
 require 'active_support/core_ext/object' # provides try and other goodies :-)
 require_relative 'hand'
 
@@ -13,6 +14,10 @@ class AIPlayer
     [@top, @middle, @bottom]
   end
 
+  def misset
+    not set
+  end
+
   def put_in_bottom?(card)
     return false if @bottom.count >= 5
     value_of(card) > 9
@@ -21,6 +26,10 @@ class AIPlayer
   def put_in_middle?(card)
     return false if @middle.count >= 5
     value_of(card) > 3
+  end
+
+  def set
+    hands.sort == hands
   end
 
   def start(initial_hand)

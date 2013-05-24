@@ -57,6 +57,7 @@ class Hand
   end
 
   def straight
+    return nil if grouped_cards.detect {|value, cards| cards.count > 1}
     high_card if count - 1 == high_card - values.min
   end
 

@@ -345,6 +345,21 @@ describe Hand do
         (@hand2 <=> @hand1).should == -1
       end
     end
+
+    context "when hand1 has a straight and hand2 has two pair" do
+      before :each do
+        @hand1 = Hand.new :size => 5, :cards => ['4H', '7C', '8C', '5S', '6D']
+        @hand2 = Hand.new :size => 5, :cards => ['JS', 'KH', 'KS', 'JH', '9D']
+      end
+      
+      it "should return 1 when hand1 is space shipped with hand2" do
+        (@hand1 <=> @hand2).should == 1
+      end
+
+      it "should return -1 when hand2 is space shipped with hand1" do
+        (@hand2 <=> @hand1).should == -1
+      end
+    end
   end
 
   describe "two of a kind" do

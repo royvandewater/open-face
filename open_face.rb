@@ -23,6 +23,14 @@ class OpenFace
     end
   end
 
+  def misset_players
+    @players.select &:misset
+  end
+
+  def set_players
+    @players.select &:set
+  end
+
   def play!
     deal_initial_hand!
 
@@ -33,13 +41,21 @@ class OpenFace
     rank_hands!
   end
 
+
   def rank_hands!
+
+
     @players.each do |player|
       top,middle,bottom = player.hands
       puts player
       puts "T: #{top}"
       puts "M: #{middle}"
       puts "B: #{bottom}"
+    end
+
+    puts "Misset Players"
+    misset_players.each do |player|
+      puts player
     end
 
     puts "Winners"
@@ -56,22 +72,22 @@ class OpenFace
 
   protected
   def bottom_winner
-    bottom_hand   = @players.map{ |player| player.hands.last }.sort.last
-    bottom_player = @players.detect {|player| player.hands.last == bottom_hand }
+    bottom_hand   = set_players.map{ |player| player.hands.last }.sort.last
+    bottom_player = set_players.detect {|player| player.hands.last == bottom_hand }
 
     [bottom_player, bottom_hand]
   end
 
   def middle_winner
-    middle_hand   = @players.map{ |player| player.hands.second }.sort.last
-    middle_player = @players.detect {|player| player.hands.second == middle_hand }
+    middle_hand   = set_players.map{ |player| player.hands.second }.sort.last
+    middle_player = set_players.detect {|player| player.hands.second == middle_hand }
 
     [middle_player, middle_hand]
   end
 
   def top_winner
-    top_hand   = @players.map{ |player| player.hands.first }.sort.last
-    top_player = @players.detect {|player| player.hands.first == top_hand }
+    top_hand   = set_players.map{ |player| player.hands.first }.sort.last
+    top_player = set_players.detect {|player| player.hands.first == top_hand }
 
     [top_player, top_hand]
   end
