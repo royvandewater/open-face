@@ -30,7 +30,7 @@ class Genetic
   end
 
   def print_results!
-    @experiments.sort.each do |experiment|
+    @experiments.sort.reverse.each do |experiment|
       puts experiment
     end
   end
@@ -51,7 +51,7 @@ class Experiment
   def run!
     @repetitions.times do
       @deck      = Deck.new
-      @player    = DumbPlayer.new :name => 'Dumb Player'
+      @player    = DumbPlayer.new :name => 'Dumb Player', :bottom_cuttoff => @bottom_cuttoff, :middle_cuttoff => @middle_cuttoff
       @open_face = OpenFace.new :players => [@player], :deck => @deck
       @open_face.play!
       @missets += 1 if @player.misset

@@ -40,8 +40,7 @@ class OpenFace
     end
   end
 
-
-  def print_results!
+  def print_hands!
     @players.each do |player|
       top,middle,bottom = player.hands
       puts "\n#{player}"
@@ -49,13 +48,23 @@ class OpenFace
       puts "M: #{middle}"
       puts "B: #{bottom}"
     end
+  end
 
+  def print_misset_players!
     puts "\nMisset Players"
     puts "--------------"
     misset_players.each do |player|
       puts player
     end
+  end
 
+  def print_results!
+    print_hands!
+    print_misset_players!
+    print_winners!
+  end
+
+  def print_winners!
     puts "\nWinners"
     puts "-------"
 
@@ -70,24 +79,39 @@ class OpenFace
 
 
   protected
-  def bottom_winner
-    bottom_hand   = set_players.map{ |player| player.hands.last }.sort.last
-    bottom_player = set_players.detect {|player| player.hands.last == bottom_hand }
+  def bottom_hand
+    set_players.map{ |player| player.hands.last }.sort.last
+  end
 
+  def bottom_player
+    set_players.detect {|player| player.hands.last == bottom_hand }
+  end
+
+  def bottom_winner
     [bottom_player, bottom_hand]
   end
 
-  def middle_winner
-    middle_hand   = set_players.map{ |player| player.hands.second }.sort.last
-    middle_player = set_players.detect {|player| player.hands.second == middle_hand }
+  def middle_hand
+    set_players.map{ |player| player.hands.second }.sort.last
+  end
 
+  def middle_player
+    set_players.detect {|player| player.hands.second == middle_hand }
+  end
+
+  def middle_winner
     [middle_player, middle_hand]
   end
 
-  def top_winner
-    top_hand   = set_players.map{ |player| player.hands.first }.sort.last
-    top_player = set_players.detect {|player| player.hands.first == top_hand }
+  def top_hand
+    set_players.map{ |player| player.hands.first }.sort.last
+  end
 
+  def top_player
+    set_players.detect {|player| player.hands.first == top_hand }
+  end
+
+  def top_winner
     [top_player, top_hand]
   end
 end
@@ -95,7 +119,7 @@ end
 if __FILE__ == $0
   @deck      = Deck.new
   @player1   = DumbPlayer.new :name => 'Du Player 1'
-  @player2   = DumbPlayer.new :name => 'Du Player 2'
+  @player2   = AIPlayer.new :name =>   'AI Player 2'
   @player3   = AIPlayer.new :name =>   'AI Player 3'
   @player4   = AIPlayer.new :name =>   'AI Player 4'
   @open_face = OpenFace.new :players => [@player1, @player2, @player3, @player4], :deck => @deck

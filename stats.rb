@@ -1,7 +1,6 @@
 #!/usr/bin/env ruby
 
 require_relative 'deck'
-require_relative 'ai_player'
 require_relative 'dumb_player'
 require_relative 'open_face'
 
@@ -14,7 +13,7 @@ if __FILE__ == $0
   @missets  = 0
   @attempts.times do
     @deck      = Deck.new
-    @player    = AIPlayer.new :name => 'AI Player'
+    @player    = DumbPlayer.new :name => 'Dumb Player'
     @open_face = OpenFace.new :players => [@player], :deck => @deck
     @open_face.play!
 
