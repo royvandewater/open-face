@@ -4,6 +4,8 @@ require_relative 'hand'
 class DumbPlayer
   def initialize(options={})
     @name = options[:name]
+    @bottom_cuttoff = options[:bottom_cuttoff] || 10
+    @middle_cuttoff = options[:middle_cuttoff] || 5
     @top = Hand.new    :size => 3
     @middle = Hand.new :size => 5
     @bottom = Hand.new :size => 5
@@ -19,12 +21,12 @@ class DumbPlayer
 
   def put_in_bottom?(card)
     return false if @bottom.count >= 5
-    value_of(card) >= 10
+    value_of(card) >= 14
   end
 
   def put_in_middle?(card)
     return false if @middle.count >= 5
-    value_of(card) >= 5
+    value_of(card) >= 9
   end
 
   def set
