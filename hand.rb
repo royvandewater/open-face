@@ -113,6 +113,10 @@ class Hand
     end
   end
 
+  def >(hand)
+    1 == (self <=> hand)
+  end
+
   private
   def grouped_cards
     @cards.group_by do |card|
