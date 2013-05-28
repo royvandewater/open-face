@@ -11,7 +11,14 @@ class Negotiator
 
   private
   def points_for_player1
-    @player1.hands.last > @player2.hands.last ? 6 : 1
+    points = 0
+
+    points += @player1.hands.first  <=> @player2.hands.first
+    points += @player1.hands.second <=> @player2.hands.second
+    points += @player1.hands.third  <=> @player2.hands.third
+
+    points *= 2 if points.abs == 3
+    points
   end
 
   def points_for_player2

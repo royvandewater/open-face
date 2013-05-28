@@ -58,7 +58,7 @@ class Hand
 
   def straight
     return nil if grouped_cards.detect {|value, cards| cards.count > 1}
-    high_card if count - 1 == high_card - values.min
+    high_card if 4 == high_card - values.min
   end
 
   def straight_flush
