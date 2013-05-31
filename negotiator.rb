@@ -13,15 +13,34 @@ class Negotiator
   def points_for_player1
     points = 0
 
-    points += @player1.hands.first  <=> @player2.hands.first
+    points += @player1.hands.first <=> @player2.hands.first
     points += @player1.hands.second <=> @player2.hands.second
-    points += @player1.hands.third  <=> @player2.hands.third
+    points += bottom_hand_points
 
-    points *= 2 if points.abs == 3
+    points += scoop_points
     points
   end
 
   def points_for_player2
     -1 * points_for_player1
+  end
+
+  def bottom_hand_points
+    hand1, hand2 = @player1.hands.third, @player2.hands.third
+    points = hand1 <=> hand2
+
+    if points == 1
+      points += 6 if @player1.hands.third.full_house
+    end
+
+    points
+  end
+
+  def scoop_points
+    points  = @player1.hands.first <=> @player2.hands.first
+    points += @player1.hands.second <=> @player2.hands.second
+    points += @player1.hands.third <=> @player2.hands.third
+
+    points.abs == 3 ? points : 0
   end
 end
