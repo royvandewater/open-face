@@ -30,7 +30,11 @@ class Negotiator
     points = hand1 <=> hand2
 
     if points == 1
-      points += 6 if @player1.hands.third.full_house
+      points += 6 if hand1.full_house
+      points += 2 if hand1.straight
+    elsif points == -1
+      points -= 6 if hand2.full_house
+      points -= 2 if hand2.straight
     end
 
     points
