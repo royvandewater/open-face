@@ -10,6 +10,26 @@ class Negotiator
   end
 
   private
+  def bottom_hand_points
+    hand1, hand2 = @player1.hands.third, @player2.hands.third
+    points = hand1 <=> hand2
+
+    if points == 1
+      points += hand_royalties(hand1)
+    elsif points == -1
+      points -= hand_royalties(hand2)
+    end
+
+    points
+  end
+
+  def hand_royalties(hand)
+    return 6 if hand.full_house
+    return 4 if hand.flush
+    return 2 if hand.straight
+    0
+  end
+
   def points_for_player1
     points = 0
 
@@ -23,23 +43,6 @@ class Negotiator
 
   def points_for_player2
     -1 * points_for_player1
-  end
-
-  def bottom_hand_points
-    hand1, hand2 = @player1.hands.third, @player2.hands.third
-    points = hand1 <=> hand2
-
-    if points == 1
-      points += 6 if hand1.full_house
-      points += 4 if hand1.flush
-      points += 2 if hand1.straight
-    elsif points == -1
-      points -= 6 if hand2.full_house
-      points -= 4 if hand2.flush
-      points -= 2 if hand2.straight
-    end
-
-    points
   end
 
   def scoop_points
