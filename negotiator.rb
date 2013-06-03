@@ -31,9 +31,11 @@ class Negotiator
 
     if points == 1
       points += 6 if hand1.full_house
+      points += 4 if hand1.flush
       points += 2 if hand1.straight
     elsif points == -1
       points -= 6 if hand2.full_house
+      points -= 4 if hand2.flush
       points -= 2 if hand2.straight
     end
 
