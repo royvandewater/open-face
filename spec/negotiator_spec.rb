@@ -199,5 +199,19 @@ describe Negotiator do
         @negotiator.negotiate!
       end
     end
+
+    context 'when player 1 has a flush on the middle and also scoops player 2' do
+      before :each do
+        @player1 = CardHolder.new [['2C', '3C', '5C'],['2H', '3H', '4H', '5H', '9H'],['8C', 'JC', 'QC', '4C', 'AC']]
+        @player2 = CardHolder.new [['2S', '3S', '4S'],['2H', '3H', '4D', '5D', '8D'],['4S', '5S', '6S', '7S', '9H']]
+        @negotiator = Negotiator.new @player1, @player2
+      end
+
+      it "should give 14 of player 2's points to player 1" do
+        @player1.should_receive(:add_points).with(14)
+        @player2.should_receive(:add_points).with(-14)
+        @negotiator.negotiate!
+      end
+    end
   end
 end
