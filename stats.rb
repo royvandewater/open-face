@@ -20,11 +20,13 @@ class Stats
 
   def play!
     progressbar = ProgressBar.new "Progress", @repetitions
+
     @repetitions.times do |i|
       open_face = OpenFace.new(:players => @players, :deck => Deck.new)
       open_face.play!
       progressbar.inc
     end
+
     progressbar.finish
   end
 
