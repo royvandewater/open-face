@@ -24,6 +24,9 @@ class Negotiator
   end
 
   def hand_royalties(hand)
+    return 25 if hand.royal_flush
+    return 15 if hand.straight_flush
+    return 10 if hand.four_of_a_kind
     return 6 if hand.full_house
     return 4 if hand.flush
     return 2 if hand.straight
