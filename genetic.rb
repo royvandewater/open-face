@@ -58,12 +58,17 @@ class Experiment
     end
   end
 
+  def score
+    @player.score
+  end
+
   def to_s
-    "[#{@bottom_cuttoff.to_s.ljust(2)}, #{@middle_cuttoff.to_s.ljust(2)}] - #{failure_rate.round(2)}%"
+    "[#{@bottom_cuttoff.to_s.ljust(2)}, #{@middle_cuttoff.to_s.ljust(2)}] - #{failure_rate.round(2)}% - #{score}"
   end
 
   def <=>(experiment)
-    failure_rate <=> experiment.failure_rate
+    # failure_rate <=> experiment.failure_rate
+    score <=> experiment.score
   end
 end
 

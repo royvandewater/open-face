@@ -40,9 +40,12 @@ class OpenFace
       deal_turn!
     end
 
-    @players.permutation 2 do |player1, player2|
-      negotiator = Negotiator.new player1, player2
-      negotiator.negotiate!
+    if @players.count > 1
+      @players.combination 2 do |player1, player2|
+        Negotiator.new(player1, player2).negotiate!
+      end
+    else
+      Negotiator.new(@players.first).negotiate!
     end
   end
 

@@ -2,11 +2,18 @@ require 'active_support/core_ext/object' # provides try and other goodies :-)
 require_relative 'hand'
 
 class AIPlayer
+  attr_reader :score
+
   def initialize(options={})
     @name = options[:name]
     @top = Hand.new    :size => 3
     @middle = Hand.new :size => 5
     @bottom = Hand.new :size => 5
+    @score = 0
+  end
+
+  def add_points(points)
+    @score += points
   end
 
   def hands
