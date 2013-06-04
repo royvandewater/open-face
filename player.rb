@@ -1,3 +1,6 @@
+require 'active_support/core_ext/object' # provides try and other goodies :-)
+require_relative 'hand'
+
 class Player
   attr_reader :name, :score
 
@@ -16,7 +19,7 @@ class Player
   end
 
   def initialize_hands
-    @top = Hand.new    :size => 3
+    @top    = Hand.new    :size => 3
     @middle = Hand.new :size => 5
     @bottom = Hand.new :size => 5
   end
@@ -56,7 +59,7 @@ class Player
   def to_s
     @name.try(:to_s) || self
   end
-  
+
   def value_of(card)
     value = card[0..-2]
     return value.to_i if value[/^[0-9]+$/]
