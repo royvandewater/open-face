@@ -10,4 +10,8 @@ class Deck
   def next_card
     @cards.pop
   end
+
+  def to_s
+    @cards.to_s
+  end
 end

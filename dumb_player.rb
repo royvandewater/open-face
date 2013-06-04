@@ -8,11 +8,16 @@ class DumbPlayer
     @name = options[:name]
     @bottom_cuttoff = options[:bottom_cuttoff] || 10
     @middle_cuttoff = options[:middle_cuttoff] || 12
-    @top    = Hand.new :size => 3
-    @middle = Hand.new :size => 5
-    @bottom = Hand.new :size => 5
+    initialize_hands
     @score  = 0
   end
+
+  def initialize_hands
+    @top = Hand.new    :size => 3
+    @middle = Hand.new :size => 5
+    @bottom = Hand.new :size => 5
+  end
+
 
   def add_points(points)
     @score += points
@@ -41,6 +46,8 @@ class DumbPlayer
   end
 
   def start(initial_hand)
+    initialize_hands
+
     initial_hand.each do |card|
       take card
     end

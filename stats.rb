@@ -19,17 +19,13 @@ class Stats
   end
 
   def play!
-    # progressbar = ProgressBar.new "Progress", @repetitions
+    progressbar = ProgressBar.new "Progress", @repetitions
     @repetitions.times do |i|
-      puts "Round #{i}"
-      puts "============"
       open_face = OpenFace.new(:players => @players, :deck => Deck.new)
       open_face.play!
-      open_face.print_hands!
-
-      # progressbar.inc
+      progressbar.inc
     end
-    # progressbar.finish
+    progressbar.finish
   end
 
   def print_results!

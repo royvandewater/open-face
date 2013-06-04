@@ -6,10 +6,14 @@ class AIPlayer
 
   def initialize(options={})
     @name = options[:name]
+    @score = 0
+    initialize_hands
+  end
+
+  def initialize_hands
     @top = Hand.new    :size => 3
     @middle = Hand.new :size => 5
     @bottom = Hand.new :size => 5
-    @score = 0
   end
 
   def add_points(points)
@@ -39,6 +43,8 @@ class AIPlayer
   end
 
   def start(initial_hand)
+    initialize_hands
+    
     initial_hand.each do |card|
       take card
     end

@@ -52,7 +52,7 @@ class OpenFace
   def print_hands!
     @players.each do |player|
       top,middle,bottom = player.hands
-      puts "\n#{player}"
+      puts "\n#{player} #{'(misset)' if player.misset}"
       puts "T: #{top}"
       puts "M: #{middle}"
       puts "B: #{bottom}"
@@ -84,8 +84,13 @@ class OpenFace
     puts "T: #{top_player} #{top_hand}"
     puts "M: #{middle_player} #{middle_hand}"
     puts "B: #{bottom_player} #{bottom_hand}"
-  end
 
+    puts "\nScores"
+    puts "-------"
+    @players.each do |player|
+      puts "#{player.name} - #{player.score}"
+    end
+  end
 
   protected
   def bottom_hand
