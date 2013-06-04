@@ -44,5 +44,6 @@ if __FILE__ == $0
   @stats = Stats.new :repetitions => repetitions
   @stats.play!
   puts "\n\nResults:"
+  puts "--------\n"
   @stats.print_results!
 end

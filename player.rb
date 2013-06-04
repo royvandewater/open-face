@@ -19,7 +19,7 @@ class Player
   end
 
   def initialize_hands
-    @top    = Hand.new    :size => 3
+    @top    = Hand.new :size => 3
     @middle = Hand.new :size => 5
     @bottom = Hand.new :size => 5
   end

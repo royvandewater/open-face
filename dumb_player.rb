@@ -1,7 +1,6 @@
 require_relative 'player'
 
 class DumbPlayer < Player
-
   def initialize(options={})
     super
     @bottom_cuttoff = options[:bottom_cuttoff] || 10
