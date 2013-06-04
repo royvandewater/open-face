@@ -2,7 +2,7 @@ require 'active_support/core_ext/object' # provides try and other goodies :-)
 require_relative 'hand'
 
 class DumbPlayer
-  attr_reader :score
+  attr_reader :name, :score
 
   def initialize(options={})
     @name = options[:name]

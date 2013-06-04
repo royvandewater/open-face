@@ -41,14 +41,21 @@ class Negotiator
   end
 
   def points_for_player1
-    points = 0
 
-    points += hand_points @player1.hands.first, @player2.hands.first
-    points += hand_points @player1.hands.second, @player2.hands.second
-    points += hand_points @player1.hands.third, @player2.hands.third
-
-    points += scoop_points
-    points
+    if @player1.misset and @player2.misset
+      0
+    elsif @player1.misset
+      -6
+    elsif @player2.misset
+      6
+    else
+      points = 0
+      points += hand_points @player1.hands.first, @player2.hands.first
+      points += hand_points @player1.hands.second, @player2.hands.second
+      points += hand_points @player1.hands.third, @player2.hands.third
+      points += scoop_points
+      points
+    end
   end
 
   def points_for_player2
