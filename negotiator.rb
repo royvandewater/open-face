@@ -1,12 +1,16 @@
 class Negotiator
-  def initialize(player1, player2)
+  def initialize(player1, player2=nil)
     @player1 = player1
     @player2 = player2
   end
 
   def negotiate!
-    @player1.add_points points_for_player1
-    @player2.add_points points_for_player2
+    if @player2
+      @player1.add_points points_for_player1
+      @player2.add_points points_for_player2
+    else
+      @player1.add_points single_player_points
+    end
   end
 
   private
@@ -58,5 +62,13 @@ class Negotiator
     points += @player1.hands.third <=> @player2.hands.third
 
     points.abs == 3 ? points : 0
+  end
+
+  def single_player_points
+    points = 0
+    points += hand_royalties @player1.hands.first
+    points += hand_royalties @player1.hands.second
+    points += hand_royalties @player1.hands.third
+    points
   end
 end

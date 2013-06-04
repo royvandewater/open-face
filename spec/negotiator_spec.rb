@@ -214,4 +214,16 @@ describe Negotiator do
       end
     end
   end
+
+  describe 'handing out royalties when its just one player' do
+    before :each do
+      @player = CardHolder.new [['2C', '3C', '5C'],['2D', '3D', '4H', '5H', '9H'],['10C', 'JH', 'QH', 'KH', 'AH']]
+      @negotiator = Negotiator.new @player
+    end
+
+    it 'should make up money like the federal reserve and give it to the player' do
+      @player.should_receive(:add_points).with(2)
+      @negotiator.negotiate!
+    end
+  end
 end

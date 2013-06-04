@@ -4,6 +4,7 @@ require 'active_support/core_ext/array' # provides second and other goodies :-)
 require_relative 'deck'
 require_relative 'ai_player'
 require_relative 'dumb_player'
+require_relative 'negotiator'
 
 class OpenFace
   def initialize(options={})
@@ -37,6 +38,11 @@ class OpenFace
 
     8.times do
       deal_turn!
+    end
+
+    @players.permutation 2 do |player1, player2|
+      negotiator = Negotiator.new player1, player2
+      negotiator.negotiate!
     end
   end
 
