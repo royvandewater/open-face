@@ -44,7 +44,7 @@ class AIPlayer
 
   def start(initial_hand)
     initialize_hands
-    
+
     initial_hand.each do |card|
       take card
     end
@@ -59,8 +59,10 @@ class AIPlayer
       @top << card
     elsif @middle.count < 5
       @middle << card
-    else
+    elsif @bottom.count < 5
       @bottom << card
+    else
+      raise 'You gave me too many cards jackass!'
     end
   end
 
