@@ -2,6 +2,8 @@ require 'active_support/core_ext/object' # provides try and other goodies :-)
 require_relative 'hand'
 
 class Player
+  SUITES = {'H' => :hearts, 'C' => :clubs, 'D' => :diamonds, 'S' => :spades}
+  
   attr_reader :name, :score
 
   def initialize(options={})
@@ -35,6 +37,10 @@ class Player
   def start(initial_hand)
     initialize_hands
 
+    take_initial initial_hand
+  end
+
+  def take_initial(initial_hand)
     initial_hand.each do |card|
       take card
     end

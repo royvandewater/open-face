@@ -26,6 +26,7 @@ class Hand
       add card
     end
   end
+  alias_method :concat, :bulk_add
 
   def count
     @cards.count
@@ -54,6 +55,12 @@ class Hand
 
   def royal_flush
     14 if straight and flush and high_card == 14
+  end
+
+  def sort
+    @cards.sort_by do |card|
+      value_of card
+    end
   end
 
   def straight
