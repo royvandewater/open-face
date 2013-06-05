@@ -3,18 +3,16 @@ require_relative 'player'
 class DumbPlayer < Player
   def put_in_bottom?(card)
     return false if @bottom.count >= 5
-    value_of(card) >= @bottom_cuttoff
+    value_of(card) >= 3
   end
 
   def put_in_middle?(card)
     return false if @middle.count >= 5
-    value_of(card) >= @middle_cuttoff
+    value_of(card) >= 9
   end
 
   def take_initial(initial_hand)
-    grouped_cards = initial_hand.group_by {|card| suite(card)}
-
-    grouped_cards.each_value do |cards| 
+    grouped_cards(initial_hand).each_value do |cards| 
       if cards.count >= 3
         @bottom.concat cards
       elsif cards.all? {|card| value_of(card) > 4}
@@ -26,6 +24,10 @@ class DumbPlayer < Player
   end
 
   protected
+  def grouped_cards(initial_hand)
+    initial_hand.group_by {|card| suite(card)}
+  end
+
   def suite(card)
     SUITES[card[-1]]
   end
