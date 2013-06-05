@@ -133,7 +133,7 @@ end
 if __FILE__ == $0
   @deck      = Deck.new
   @player1   = DumbPlayer.new :name => 'Du Player 1'
-  @player2   = AIPlayer.new :name =>   'AI Player 2'
+  @player2   = DumbPlayer.new :name => 'Du Player 2'
   @player3   = AIPlayer.new :name =>   'AI Player 3'
   @player4   = AIPlayer.new :name =>   'AI Player 4'
   @open_face = OpenFace.new :players => [@player1, @player2, @player3, @player4], :deck => @deck

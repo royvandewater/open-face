@@ -230,14 +230,40 @@ describe Negotiator do
   end
 
   describe 'handing out royalties when its just one player' do
-    before :each do
-      @player = CardHolder.new [['2C', '3C', '5C'],['2D', '3D', '4H', '5H', '9H'],['10C', 'JH', 'QH', 'KH', 'AH']]
-      @negotiator = Negotiator.new @player
+    context 'when the player missets' do
+      before :each do
+        @player = CardHolder.new [['AC', 'AC', 'AC'],['2D', '3D', '4H', '5H', '9H'],['10C', 'JH', 'QH', 'KH', 'AH']]
+        @negotiator = Negotiator.new @player
+      end
+
+      it 'should tax the crap out of the player' do
+        @player.should_receive(:add_points).with(-6)
+        @negotiator.negotiate!
+      end
     end
 
-    it 'should make up money like the federal reserve and give it to the player' do
-      @player.should_receive(:add_points).with(2)
-      @negotiator.negotiate!
+    context 'when the player has nothing better than a high card each hand' do
+      before :each do
+        @player = CardHolder.new [['2C', '3C', '4C'],['2D', '3D', '4H', '5H', '9H'],['9C', 'JH', 'QH', 'KH', 'AH']]
+        @negotiator = Negotiator.new @player
+      end
+
+      it 'should give the player a participation trophy' do
+        @player.should_receive(:add_points).with(6)
+        @negotiator.negotiate!
+      end
+    end
+
+    context 'when the player gets some royalties' do
+      before :each do
+        @player = CardHolder.new [['2C', '3C', '5C'],['2D', '3D', '4H', '5H', '9H'],['10C', 'JH', 'QH', 'KH', 'AH']]
+        @negotiator = Negotiator.new @player
+      end
+
+      it 'should make up money like the federal reserve and give it to the player, on top of the participation trophy' do
+        @player.should_receive(:add_points).with(8)
+        @negotiator.negotiate!
+      end
     end
   end
 end
