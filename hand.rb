@@ -2,6 +2,7 @@ require 'active_support/core_ext/object' # provides try and other goodies :-)
 require 'active_support/core_ext/array' # provides second and other goodies :-)
 
 class Hand
+  SUITES = {'H' => :hearts, 'C' => :clubs, 'D' => :diamonds, 'S' => :spades}
   HAND_ORDER = [:royal_flush, :straight_flush, :four_of_a_kind, :full_house, :flush, 
                 :straight, :three_of_a_kind, :two_pair, :two_of_a_kind, :high_card]
 
@@ -22,6 +23,7 @@ class Hand
   alias_method :<<, :add
 
   def bulk_add(cards)
+    return unless cards
     cards.each do |card|
       add card
     end
@@ -74,8 +76,8 @@ class Hand
 
   def suites
     @cards.map do |card|
-      card[-1]
-    end
+      SUITES[card[-1]]
+    end.uniq
   end
 
   def three_of_a_kind

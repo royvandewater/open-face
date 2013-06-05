@@ -2,14 +2,16 @@ require 'active_support/core_ext/object' # provides try and other goodies :-)
 require_relative 'hand'
 
 class Player
-  SUITES = {'H' => :hearts, 'C' => :clubs, 'D' => :diamonds, 'S' => :spades}
-  
   attr_reader :name, :score
 
   def initialize(options={})
     @name = options[:name]
     @score  = 0
     initialize_hands
+
+    @top.bulk_add    options[:top]
+    @middle.bulk_add options[:middle]
+    @bottom.bulk_add options[:bottom]
   end
 
   def add_points(points)

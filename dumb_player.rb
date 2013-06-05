@@ -3,12 +3,17 @@ require_relative 'player'
 class DumbPlayer < Player
   def put_in_bottom?(card)
     return false if @bottom.count >= 5
-    value_of(card) >= 3
+
+    if @bottom.suites.count == 1 and @bottom.suites.include? suite(card)
+      true
+    else
+      value_of(card) >= 9
+    end
   end
 
   def put_in_middle?(card)
     return false if @middle.count >= 5
-    value_of(card) >= 9
+    value_of(card) >= 3
   end
 
   def take_initial(initial_hand)
@@ -29,6 +34,6 @@ class DumbPlayer < Player
   end
 
   def suite(card)
-    SUITES[card[-1]]
+    Hand::SUITES[card[-1]]
   end
 end
