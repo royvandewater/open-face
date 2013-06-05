@@ -4,7 +4,7 @@ class DumbPlayer < Player
   def initialize(options={})
     super
     @bottom_cuttoff = options[:bottom_cuttoff] || 10
-    @middle_cuttoff = options[:middle_cuttoff] || 12
+    @middle_cuttoff = options[:middle_cuttoff] || 5
   end
 
   def put_in_bottom?(card)

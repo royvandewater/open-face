@@ -14,10 +14,6 @@ class Negotiator
   end
 
   private
-  def bottom_hand_points
-    
-  end
-
   def hand_points(hand1, hand2)
     points = hand1 <=> hand2
 
