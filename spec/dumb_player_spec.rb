@@ -7,7 +7,7 @@ describe DumbPlayer do
       @player = DumbPlayer.new
     end
 
-    it 'should persue flushes when appropriate' do
+    it 'should pursue spade flushes when appropriate' do
       @player.take_initial ["8S", "5S", "AS", "KC", "3D"]
       top, middle, bottom = @player.hands
       top.sort.should    == ['3D']
@@ -15,12 +15,20 @@ describe DumbPlayer do
       bottom.sort.should == ['5S','8S','AS']
     end
 
-    it 'should deal with ["JH", "6H", "2C", "QC", "7C"]' do
+    it 'should pursue club flushes when appropriate' do
       @player.take_initial ["JH", "6H", "2C", "QC", "7C"]
       top, middle, bottom = @player.hands
       top.sort.should    == []
       middle.sort.should == ['6H','JH']
       bottom.sort.should == ['2C','7C','QC']
+    end
+
+    it 'should put the full house on the bottom when it gets dealt one' do
+      @player.take_initial ["7C", "8H", "7H", "8S", "8D"]
+      top, middle, bottom = @player.hands
+      top.sort.should    == []
+      middle.sort.should == []
+      bottom.sort.should == ["7C", "7H", "8H", "8S", "8D"]
     end
   end
 

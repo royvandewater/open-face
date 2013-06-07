@@ -17,6 +17,7 @@ class DumbPlayer < Player
   end
 
   def take_initial(initial_hand)
+    return @bottom.concat initial_hand if Hand.new(:cards => initial_hand).full_house
     flush_suite = most_popular_suite(initial_hand)
 
     grouped_cards(initial_hand).each do |suite, cards| 

@@ -12,6 +12,7 @@ class Hand
 
     return unless options[:cards]
 
+    @size ||= options[:cards].count
     raise ArgumentError.new 'number of cards exceeds capacity' if options[:cards].count > @size
     bulk_add options[:cards]
   end
