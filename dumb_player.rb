@@ -13,17 +13,29 @@ class DumbPlayer < Player
 
   def put_in_middle?(card)
     return false if @middle.count >= 5
-    value_of(card) >= 3
+    value_of(card) > 3
   end
 
   def take_initial(initial_hand)
-    grouped_cards(initial_hand).each_value do |cards| 
-      if cards.count >= 3
+    flush_suite = most_popular_suite(initial_hand)
+
+    grouped_cards(initial_hand).each do |suite, cards| 
+      if suite == flush_suite
         @bottom.concat cards
-      elsif cards.all? {|card| value_of(card) > 4}
-        @middle.concat cards
       else
-        @top.concat cards
+        cards.each do |card|
+          if put_in_middle? card
+            @middle << card
+          elsif @top.count < 3
+            @top << card
+          elsif @middle.count < 5
+            @middle << card
+          elsif @bottom.count < 5
+            @bottom << card
+          else
+            raise 'You gave me too many cards jackass!'
+          end
+        end
       end
     end
   end
@@ -31,6 +43,10 @@ class DumbPlayer < Player
   protected
   def grouped_cards(initial_hand)
     initial_hand.group_by {|card| suite(card)}
+  end
+
+  def most_popular_suite(hand)
+    grouped_cards(hand).max_by {|suite, cards| cards.count}.try :first
   end
 
   def suite(card)
