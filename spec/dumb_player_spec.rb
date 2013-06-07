@@ -10,25 +10,41 @@ describe DumbPlayer do
     it 'should pursue spade flushes when appropriate' do
       @player.take_initial ["8S", "5S", "AS", "KC", "3D"]
       top, middle, bottom = @player.hands
-      top.sort.should    == ['3D']
-      middle.sort.should == ['KC']
-      bottom.sort.should == ['5S','8S','AS']
+      top.sort!.cards.should    == ['3D']
+      middle.sort!.cards.should == ['KC']
+      bottom.sort!.cards.should == ['5S','8S','AS']
     end
 
     it 'should pursue club flushes when appropriate' do
       @player.take_initial ["JH", "6H", "2C", "QC", "7C"]
       top, middle, bottom = @player.hands
-      top.sort.should    == []
-      middle.sort.should == ['6H','JH']
-      bottom.sort.should == ['2C','7C','QC']
+      top.sort!.cards.should    == []
+      middle.sort!.cards.should == ['6H','JH']
+      bottom.sort!.cards.should == ['2C','7C','QC']
+    end
+
+    it 'should pursue diamond flushes when appropriate' do
+      @player.take_initial ["KD", "AD", "QC", "6C", "8D"]
+      top, middle, bottom = @player.hands
+      top.sort!.cards.should    == []
+      middle.sort!.cards.should == ['6C','QC']
+      bottom.sort!.cards.should == ['8D','KD','AD']
     end
 
     it 'should put the full house on the bottom when it gets dealt one' do
       @player.take_initial ["7C", "8H", "7H", "8S", "8D"]
       top, middle, bottom = @player.hands
-      top.sort.should    == []
-      middle.sort.should == []
-      bottom.sort.should == ["7C", "7H", "8H", "8S", "8D"]
+      top.sort!.cards.should    == []
+      middle.sort!.cards.should == []
+      bottom.sort!.cards.should == ["7C", "7H", "8H", "8S", "8D"]
+    end
+
+    it 'should persue potential straights' do
+      @player.take_initial ["KH", "7C", "6D", "AS", "5D"] 
+      top, middle, bottom = @player.hands
+      top.sort!.cards.should    == []
+      middle.sort!.cards.should == ["KH", "AS"]
+      bottom.sort!.cards.should == ["5D", "6D", "7C"]
     end
   end
 

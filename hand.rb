@@ -6,6 +6,8 @@ class Hand
   HAND_ORDER = [:royal_flush, :straight_flush, :four_of_a_kind, :full_house, :flush, 
                 :straight, :three_of_a_kind, :two_pair, :two_of_a_kind, :high_card]
 
+  attr_reader :cards
+
   def initialize(options={})
     @cards = []
     @size  = options[:size]
@@ -60,10 +62,11 @@ class Hand
     14 if straight and flush and high_card == 14
   end
 
-  def sort
-    @cards.sort_by do |card|
+  def sort!
+    @cards = @cards.sort_by do |card|
       value_of card
     end
+    self
   end
 
   def straight
