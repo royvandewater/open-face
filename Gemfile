@@ -1,11 +1,12 @@
 # A sample Gemfile
 source "https://rubygems.org"
 
-# gem "rails"
-gem 'rspec'
-gem 'debugger'
 gem 'activesupport'
-gem 'progressbar'
-gem 'ZenTest'
-gem 'autotest-growl'
 gem 'autotest-doom'
+gem 'autotest-growl'
+gem 'classifier'
+gem 'debugger'
+gem 'progressbar'
+gem 'rspec'
+gem 'ZenTest'
+
