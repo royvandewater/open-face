@@ -70,7 +70,7 @@ class Negotiator
   def single_player_points
     return -6 if @player1.misset
     
-    points = 6
+    points = 0
     points += hand_royalties @player1.hands.first
     points += hand_royalties @player1.hands.second
     points += hand_royalties @player1.hands.third

@@ -248,8 +248,8 @@ describe Negotiator do
         @negotiator = Negotiator.new @player
       end
 
-      it 'should give the player a participation trophy' do
-        @player.should_receive(:add_points).with(6)
+      it 'should give the player no points' do
+        @player.should_receive(:add_points).with(0)
         @negotiator.negotiate!
       end
     end
@@ -260,8 +260,8 @@ describe Negotiator do
         @negotiator = Negotiator.new @player
       end
 
-      it 'should make up money like the federal reserve and give it to the player, on top of the participation trophy' do
-        @player.should_receive(:add_points).with(8)
+      it 'should make up money like the federal reserve and give it to the player' do
+        @player.should_receive(:add_points).with(2)
         @negotiator.negotiate!
       end
     end
