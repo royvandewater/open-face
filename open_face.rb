@@ -47,6 +47,8 @@ class OpenFace
     else
       Negotiator.new(@players.first).negotiate!
     end
+
+    @players.each &:game_over!
   end
 
   def print_hands!

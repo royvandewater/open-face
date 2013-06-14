@@ -18,8 +18,15 @@ class Player
     @score += points
   end
 
+  def game_over!
+  end
+
   def hands
     [@top, @middle, @bottom]
+  end
+
+  def hands_full?
+    @top.count == 3 && @middle.count == 5 && @bottom.count == 5
   end
 
   def initialize_hands
@@ -33,7 +40,7 @@ class Player
   end
 
   def set
-    hands.sort == hands
+    hands_full? and (hands.sort == hands)
   end
 
   def start(initial_hand)
