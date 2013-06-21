@@ -5,7 +5,11 @@
 #
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
 
-require 'debugger'
+begin
+  require 'debugger'
+rescue LoadError
+  puts 'no debugger installed'
+end
 
 RSpec.configure do |config|
   config.treat_symbols_as_metadata_keys_with_true_values = true
