@@ -1,3 +1,5 @@
+#!/usr/bin/env ruby
+
 require 'classifier'
 require_relative 'player'
 

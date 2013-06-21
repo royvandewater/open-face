@@ -1,12 +1,15 @@
+#!/usr/bin/env ruby
+
 require 'active_support/core_ext/object' # provides try and other goodies :-)
 require_relative 'hand'
 
 class Player
-  attr_reader :name, :score
+  attr_reader :name, :score, :other_players
 
   def initialize(options={})
     @name = options[:name]
     @score  = 0
+    @other_players = []
     initialize_hands
 
     @top.bulk_add    options[:top]

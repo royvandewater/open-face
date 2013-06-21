@@ -10,6 +10,10 @@ class OpenFace
   def initialize(options={})
     @deck = options[:deck]
     @players = options[:players]
+
+    @players.permutation 2 do |player1, player2|
+      player1.other_players << player2
+    end
   end
 
   def deal_initial_hand!
