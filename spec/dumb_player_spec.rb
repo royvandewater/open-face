@@ -18,16 +18,16 @@ describe DumbPlayer do
     it 'should pursue club flushes when appropriate' do
       @player.take_initial ["JH", "6H", "2C", "QC", "7C"]
       top, middle, bottom = @player.hands
-      top.sort!.cards.should    == []
-      middle.sort!.cards.should == ['6H','JH']
+      top.sort!.cards.should    == ['6H']
+      middle.sort!.cards.should == ['JH']
       bottom.sort!.cards.should == ['2C','7C','QC']
     end
 
     it 'should pursue diamond flushes when appropriate' do
       @player.take_initial ["KD", "AD", "QC", "6C", "8D"]
       top, middle, bottom = @player.hands
-      top.sort!.cards.should    == []
-      middle.sort!.cards.should == ['6C','QC']
+      top.sort!.cards.should    == ['6C']
+      middle.sort!.cards.should == ['QC']
       bottom.sort!.cards.should == ['8D','KD','AD']
     end
 
@@ -123,6 +123,48 @@ describe DumbPlayer do
 
         it 'should not place it in the middle' do
           @player.hands.second.should_not include '9C'
+        end
+      end
+    end
+
+    context 'the player has nothing in the middle, but already has four cards' do
+      before :each do
+        @player = DumbPlayer.new(
+          :top    => [],
+          :middle => ['4C', '5C', '6C', 'JS'],
+          :bottom => ['6D', '10D', '7D', '8D', 'AD'],
+        )
+      end
+
+      context 'the player recieves a card that is lower than the highest card (in the middle)' do
+        before :each do
+          @player.take '9S'
+        end
+
+        it 'should not place it in the middle' do
+          @player.hands.second.should_not include '9S'
+        end
+      end
+    end
+  end
+
+  describe 'put_in_top?' do
+    context 'there is already a pair in the middle' do
+      before :each do
+        @player = DumbPlayer.new(
+          :top    => ['2D', '5S'],
+          :middle => ['5D', '7S', '7C'],
+          :bottom => [],
+        )
+      end
+
+      context 'the player recieves a low value card' do
+        before :each do
+          @player.take '4C'
+        end
+
+        it 'should not place it on the top' do
+          @player.hands.first.should_not include '4C'
         end
       end
     end

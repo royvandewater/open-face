@@ -14,8 +14,16 @@ class DumbPlayer < Player
 
   def put_in_middle?(card)
     return false if @middle.count >= 5
-    return false if @middle.two_of_a_kind.to_i > value_of(card)
+    return false if @middle.values.max.to_i > value_of(card)
+
     value_of(card) > 3
+  end
+
+  def put_in_top?(card)
+    return false if @top.count >= 3
+    return true  if @top.count <= 1
+
+    @middle.values.include? value_of(card)
   end
 
   def take_initial(initial_hand)

@@ -38,6 +38,10 @@ class Player
     @bottom = Hand.new :size => 5
   end
 
+  def put_in_top?(card)
+    @top.count < 3
+  end
+
   def misset
     not set
   end
@@ -63,12 +67,14 @@ class Player
       @bottom << card
     elsif put_in_middle? card
       @middle << card
-    elsif @top.count < 3
+    elsif put_in_top? card
       @top << card
     elsif @middle.count < 5
       @middle << card
     elsif @bottom.count < 5
       @bottom << card
+    elsif @top.count < 5
+      @top << card
     else
       raise 'You gave me too many cards jackass!'
     end
