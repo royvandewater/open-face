@@ -14,7 +14,7 @@ class Stats
 
     @players = [
       DumbPlayer.new(:name => 'Dumb Plyr 1'),
-      AIPlayer.new(  :name => 'AI Player 2'),
+      DumbPlayer.new(:name => 'Dumb Plyr 2'),
       AIPlayer.new(  :name => 'AI Player 3'),
       AIPlayer.new(  :name => 'AI Player 4'),
     ]
@@ -30,18 +30,10 @@ class Stats
     end
 
     progressbar.finish
-
-
   end
 
   def print_results!
-    @players.each do |player|
-      puts "#{player.name} - #{player.score}"
-    end
-    
-    @open_face = OpenFace.new :players => @players, :deck => Deck.new
-    @open_face.play!
-    @open_face.print_results!
+    puts @players.map(&:to_s).join("\n")
   end
 end
 

@@ -75,7 +75,9 @@ class Player
   end
 
   def to_s
-    @name.try(:to_s) || self
+    self unless @name
+
+    "#{@name} - #{score}"
   end
 
   def value_of(card)
