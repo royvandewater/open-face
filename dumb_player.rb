@@ -3,6 +3,7 @@ require_relative 'player'
 class DumbPlayer < Player
   def put_in_bottom?(card)
     return false if @bottom.count >= 5
+    return false if @bottom.two_of_a_kind.to_i > value_of(card)
 
     if @bottom.suites.count == 1 and @bottom.count >= 3
       @bottom.suites.include? suite(card)

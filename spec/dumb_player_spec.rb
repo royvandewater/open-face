@@ -84,6 +84,26 @@ describe DumbPlayer do
         end
       end
     end
+
+    context 'the player already has a pair in the bottom' do
+      before :each do
+        @player = DumbPlayer.new(
+          :top    => [],
+          :middle => ['8C', '4H'],
+          :bottom => ['QH', '10C', 'QS', 'KS'],
+        )
+      end
+
+      context 'the player recieves a card with slightly less value than the bottom pair' do
+        before :each do
+          @player.take 'JC'
+        end
+
+        it 'should not place it in the bottom' do
+          @player.hands.third.should_not include 'JC'
+        end
+      end
+    end
   end
 
   describe 'put_in_middle?' do
