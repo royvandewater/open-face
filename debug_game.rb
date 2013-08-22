@@ -43,10 +43,11 @@ class DebugGame
 
   def wait_for_any_key
     puts 'Press any key'
-    system("stty raw -echo")
+    state = `stty -g`
+    `stty raw -echo -icanon isig`
     STDIN.getc
   ensure
-    system("stty -raw echo")
+    `stty #{state}`
   end
 end
 

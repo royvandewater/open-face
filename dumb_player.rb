@@ -4,8 +4,8 @@ class DumbPlayer < Player
   def put_in_bottom?(card)
     return false if @bottom.count >= 5
 
-    if @bottom.suites.count == 1 and @bottom.suites.include? suite(card)
-      true
+    if @bottom.suites.count == 1 and @bottom.count >= 3
+      @bottom.suites.include? suite(card)
     else
       value_of(card) >= 9
     end

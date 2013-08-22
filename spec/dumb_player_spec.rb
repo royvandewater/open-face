@@ -40,7 +40,7 @@ describe DumbPlayer do
     end
 
     it 'should persue potential straights' do
-      @player.take_initial ["KH", "7C", "6D", "AS", "5D"] 
+      @player.take_initial ["KH", "7C", "6D", "AS", "5D"]
       top, middle, bottom = @player.hands
       top.sort!.cards.should    == []
       middle.sort!.cards.should == ["KH", "AS"]
@@ -49,7 +49,7 @@ describe DumbPlayer do
   end
 
   describe 'put_in_bottom?' do
-    context 'when the player is on track to get a flush and recieves another card of the same suite' do
+    context 'when the player is on track to get a flush' do
       before :each do
         @player = DumbPlayer.new :bottom => ['2C','7C','QC']
       end
@@ -58,19 +58,29 @@ describe DumbPlayer do
         before :each do
           @player.take '4C'
         end
-          
+
         it 'should place it in the bottom' do
           @player.hands.third.should include '4C'
         end
       end
 
-      context 'the player recieves a card of a different suite' do
+      context 'the player recieves a low value card of a different suite' do
         before :each do
           @player.take '4H'
         end
-          
+
         it 'should not place it in the bottom' do
           @player.hands.third.should_not include '4H'
+        end
+      end
+
+      context 'the player recieves a high value card of a different suite' do
+        before :each do
+          @player.take 'KD'
+        end
+
+        it 'should not place it in the bottom' do
+          @player.hands.third.should_not include 'KD'
         end
       end
     end
