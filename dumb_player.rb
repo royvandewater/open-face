@@ -20,6 +20,8 @@ class DumbPlayer < Player
     return @bottom.concat initial_hand if Hand.new(:cards => initial_hand).full_house
     return flush_it_up initial_hand    if most_popular_suite_cards(initial_hand).count >= 3
     return straight_it_up initial_hand if longest_run(initial_hand).count >= 3
+
+    super # If all else fails, default to old behaviour
   end
 
   protected

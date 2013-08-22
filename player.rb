@@ -9,7 +9,7 @@ class Player
   def initialize(options={})
     @name = options[:name]
     @score  = 0
-    @other_players = []
+    @other_players = options[:other_players] || []
     initialize_hands
 
     @top.bulk_add    options[:top]
