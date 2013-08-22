@@ -3,7 +3,7 @@ require 'active_support/core_ext/array' # provides second and other goodies :-)
 
 class Hand
   SUITES = {'H' => :hearts, 'C' => :clubs, 'D' => :diamonds, 'S' => :spades}
-  HAND_ORDER = [:royal_flush, :straight_flush, :four_of_a_kind, :full_house, :flush, 
+  HAND_ORDER = [:royal_flush, :straight_flush, :four_of_a_kind, :full_house, :flush,
                 :straight, :three_of_a_kind, :two_pair, :two_of_a_kind, :high_card]
 
   attr_reader :cards
@@ -48,7 +48,7 @@ class Hand
 
   def full_house
     n_of_a_kind(2) && n_of_a_kind(3)
-  end 
+  end
 
   def high_card
     values.max

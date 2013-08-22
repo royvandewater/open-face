@@ -13,6 +13,7 @@ class DumbPlayer < Player
 
   def put_in_middle?(card)
     return false if @middle.count >= 5
+    return false if @middle.two_of_a_kind.to_i > value_of(card)
     value_of(card) > 3
   end
 
