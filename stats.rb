@@ -13,10 +13,10 @@ class Stats
     @repetitions = options[:repetitions] || 1000
 
     @players = [
-      # DumbPlayer.new(:name => 'Dumb Plyr 1'),
-      # DumbPlayer.new(:name => 'Dumb Plyr 2'),
-      AIPlayer.new(  :name => 'AI Player 1'),
-      AIPlayer.new(  :name => 'AI Player 2'),
+      DumbPlayer.new(:name => 'Dumb Plyr 1'),
+      DumbPlayer.new(:name => 'Dumb Plyr 2'),
+      # AIPlayer.new(  :name => 'AI Player 1'),
+      # AIPlayer.new(  :name => 'AI Player 2'),
       AIPlayer.new(  :name => 'AI Player 3'),
       AIPlayer.new(  :name => 'AI Player 4'),
     ]
