@@ -10,6 +10,13 @@ GEM
     autotest-growl (0.2.16)
     classifier (1.3.3)
       fast-stemmer (>= 1.0.0)
+    columnize (0.3.6)
+    debugger (1.5.0)
+      columnize (>= 0.3.1)
+      debugger-linecache (~> 1.2.0)
+      debugger-ruby_core_source (~> 1.2.0)
+    debugger-linecache (1.2.0)
+    debugger-ruby_core_source (1.2.0)
     diff-lcs (1.2.4)
     fast-stemmer (1.0.2)
     i18n (0.6.1)
@@ -36,5 +43,6 @@ DEPENDENCIES
   autotest-doom
   autotest-growl
   classifier
+  debugger
   progressbar
   rspec
