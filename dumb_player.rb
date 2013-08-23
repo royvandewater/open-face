@@ -7,6 +7,8 @@ class DumbPlayer < Player
 
     if @bottom.suites.count == 1 and @bottom.count >= 3
       @bottom.suites.include? suite(card)
+    elsif longest_run(@bottom.cards).count >= 3
+      longest_run(@bottom.cards).count < longest_run(@bottom.cards + [card]).count
     else
       value_of(card) >= 9
     end
@@ -67,6 +69,8 @@ class DumbPlayer < Player
   end
 
   def longest_run(initial_hand)
+    return [] if initial_hand.empty?
+
     cards = Hand.new(:cards => initial_hand).sort!.cards
 
     runs = []

@@ -22,7 +22,7 @@ class DebugGame
       next_card = @deck.next_card
 
       print_hands!
-      puts "next card: #{next_card}"
+      puts "@player.take '#{next_card}'"
       wait_for_any_key
 
       @player.take next_card
@@ -31,10 +31,11 @@ class DebugGame
 
   def print_hands!
     top,middle,bottom = player.hands
-    puts "T: #{top}"
-    puts "M: #{middle}"
-    puts "B: #{bottom}\n"
-  end
+    puts "@player = DumbPlayer.new("
+    puts "  :top    => #{top},"
+    puts "  :middle => #{middle},"
+    puts "  :bottom => #{bottom},\n)\n"
+ end
 
   def print_results!
     puts "\n#{player.name} #{'(misset)' if player.misset}"

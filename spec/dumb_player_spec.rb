@@ -104,6 +104,26 @@ describe DumbPlayer do
         end
       end
     end
+
+    context 'the player has three cards for a straight in the bottom' do
+      before :each do
+        @player = DumbPlayer.new(
+          :top => [],
+          :middle => ["4H", "AS"],
+          :bottom => ["2H", "3D", "4C"],
+        )
+      end
+
+      context 'the player recieves a card that does not fit in the potential straight' do
+        before :each do
+          @player.take '9D'
+        end
+
+        it 'should not place the card on the bottom' do
+          @player.hands.third.should_not include '9D'
+        end
+      end
+    end
   end
 
   describe 'put_in_middle?' do
