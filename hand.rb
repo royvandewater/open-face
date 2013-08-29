@@ -1,5 +1,6 @@
-require 'active_support/core_ext/object' # provides try and other goodies :-)
-require 'active_support/core_ext/array' # provides second and other goodies :-)
+require 'active_support/core_ext/object'     # provides try
+require 'active_support/core_ext/array'      # provides second
+require 'active_support/core_ext/enumerable' # provides sum
 
 class Hand
   SUITES = {'H' => :hearts, 'C' => :clubs, 'D' => :diamonds, 'S' => :spades}

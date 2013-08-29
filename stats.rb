@@ -5,6 +5,7 @@ require 'progressbar'
 require_relative 'deck'
 require_relative 'bayesian_player'
 require_relative 'dumb_player'
+require_relative 'card_counting_player'
 require_relative 'ai_player'
 require_relative 'open_face'
 
@@ -13,12 +14,10 @@ class Stats
     @repetitions = options[:repetitions] || 1000
 
     @players = [
-      DumbPlayer.new(:name => 'Dumb Plyr 1'),
-      DumbPlayer.new(:name => 'Dumb Plyr 2'),
-      # AIPlayer.new(  :name => 'AI Player 1'),
-      # AIPlayer.new(  :name => 'AI Player 2'),
-      AIPlayer.new(  :name => 'AI Player 3'),
-      AIPlayer.new(  :name => 'AI Player 4'),
+      CardCountingPlayer.new(:name => 'CC Player 1'),
+      DumbPlayer.new(        :name => 'DB Player 2'),
+      AIPlayer.new(          :name => 'AI Player 3'),
+      AIPlayer.new(          :name => 'AI Player 4'),
     ]
   end
 
