@@ -46,4 +46,60 @@ describe CardCountingPlayer do
       end
     end
   end
+
+  describe 'probability_of_getting' do
+    context 'when 11 of 13 cards have already been dealt' do
+      before :each do
+        @sut = CardCountingPlayer.new(
+          :top    => ['2C'],
+          :middle => ['2H', '3H', '4H', '5H', '6H'],
+          :bottom => ['2S', '3S', '4S', '5S', '6S'],
+        )
+      end
+
+      it 'should calculate a probability of 2/41 when trying to get one card' do
+        expect(@sut.probability_of_getting 1, :of => ['JH']).to eq 2.0/41.0
+      end
+
+      it 'should calculate a probability of 1/820 when trying to get two cards' do
+        expect(@sut.probability_of_getting 2, :of => ['JH', 'QH']).to eq 1.0/820.0
+      end
+
+      it 'should calculate a probability of 3/820 when trying to get any two of three cards' do
+        expect(@sut.probability_of_getting 2, :of => ['JH', 'QH', 'KH']).to eq 3.0/820.0
+      end
+
+      it 'should calculate a probability of 0 when trying to get three cards' do
+        expect(@sut.probability_of_getting 3, :of => ['JH', 'QH', 'KH']).to eq 0
+      end
+    end
+
+    context 'when 10 of 13 cards have already been dealt' do
+      before :each do
+        @sut = CardCountingPlayer.new(
+          :top    => [],
+          :middle => ['2H', '3H', '4H', '5H', '6H'],
+          :bottom => ['2S', '3S', '4S', '5S', '6S'],
+        )
+      end
+
+      # it 'should calculate a probability of 3/42 when trying to get one card' do
+      #   expect(@sut.probability_of_getting 1, :of => ['JH']).to eq 3.0/42.0
+      # end
+
+      # it 'should calculate a probability of 3/861 when trying to get two cards' do
+      #   expect(@sut.probability_of_getting 2, :of => ['JH', 'QH']).to eq 3.0/861.0
+      # end
+
+      # it 'should calculate a probability of 3/820 when trying to get any two of three cards' do
+      #   expect(@sut.probability_of_getting 2, :of => ['JH', 'QH', 'KH']).to eq 3.0/820.0
+      # end
+
+      # it 'should calculate a probability of 0 when trying to get three cards' do
+      #   expect(@sut.probability_of_getting 3, :of => ['JH', 'QH', 'KH']).to eq 0
+      # end
+    end
+
+    # context 'when one a card has been dealt'
+  end
 end
