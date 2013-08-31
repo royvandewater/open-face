@@ -5,13 +5,8 @@ class CardCountingPlayer < Player
   def probability_of_getting(number, options={})
     case number
     when 1 then 2.0/41.0
+    when 2 then (options[:of].count * (options[:of].count - 1)).to_f / (41 * 40).to_f
     when 3 then 0
-    else
-      if options[:of].count == 3
-        3.0 / 820.0
-      else
-        1.0 / 820.0
-      end
     end
   end
 
