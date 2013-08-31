@@ -57,8 +57,16 @@ describe CardCountingPlayer do
         )
       end
 
-      it 'should calculate a probability of 2/41 when trying to get one card' do
+      it 'should calculate a probability of 2/41 when trying to get one of one cards' do
         expect(@sut.probability_of_getting 1, :of => ['JH']).to eq 2.0/41.0
+      end
+
+      it 'should calculate a probability of 79/820 when trying to get one of two cards' do
+        expect(@sut.probability_of_getting 1, :of => ['JH', 'QH']).to eq 79.0/820.0
+      end
+
+      it 'should calculate a probability of 117/820 when trying to get one of three cards' do
+        expect(@sut.probability_of_getting 1, :of => ['JH', 'QH', 'KH']).to be_within(0.000001).of 117.0/820.0
       end
 
       it 'should calculate a probability of 1/820 when trying to get two cards' do
