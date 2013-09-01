@@ -4,6 +4,9 @@ require 'active_support/core_ext/enumerable' # provides sum
 class CardCountingPlayer < Player
   def probability_of_getting(number, options={})
     targets = options[:of]
+    chances_left = 13 - cards.count
+
+    return 0 if chances_left < number
 
     if number == 1
       first_chance  = targets.count / 41.0
@@ -12,7 +15,7 @@ class CardCountingPlayer < Player
     elsif number == 2
       (targets.count * (targets.count - 1)).to_f / (41 * 40).to_f
     else
-      0
+      1.0/11480.0
     end
   end
 
