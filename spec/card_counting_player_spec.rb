@@ -106,5 +106,16 @@ describe CardCountingPlayer do
         expect(@sut.probability_of_getting 3, :of => ['JH', 'QH', 'KH']).to be_within(0.000001).of 1.0/11480.0
       end
     end
+
+    context 'when another player exists and 2 cards have been dealt' do
+      before :each do
+        @other_player = CardCountingPlayer.new(:top => ['QH'])
+        @sut = CardCountingPlayer.new(:top => ['JH'], :other_players => [@other_player])
+      end
+
+      it 'should calculate a probability of 0 for getting a QH' do
+        expect(@sut.probability_of_getting 1, :of => ['QH']).to eq 0
+      end
+    end
   end
 end
