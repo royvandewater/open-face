@@ -2,13 +2,19 @@ require_relative 'player'
 require 'active_support/core_ext/enumerable' # provides sum
 
 class CardCountingPlayer < Player
+  def put_in_bottom?(card)
+  end
+
+  def put_in_middle?(card)
+  end
+
   def probability_of_getting(number, options={})
     return 1.0 if number <= 0 || options[:of].nil?
 
     targets = options[:of] - all_cards
     targets_left = targets.count.to_f
     chances_left = (options[:chances_left] || 13 - cards.count).to_f
-    cards_left   = (options[:cards_left]   || 52 - cards.count).to_f
+    cards_left   = (options[:cards_left]   || 52 - all_cards.count).to_f
 
     return 0.0 if chances_left < number
 
@@ -25,6 +31,7 @@ class CardCountingPlayer < Player
     probability_of_getting 1, :of => [card]
   end
 
+  protected
   def all_cards
     return cards if other_players.empty?
 
@@ -36,13 +43,4 @@ class CardCountingPlayer < Player
   def cards
     hands.sum &:cards
   end
-
-  def put_in_bottom?(card)
-  end
-
-  def put_in_middle?(card)
-  end
 end
-
-
-

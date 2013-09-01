@@ -116,6 +116,10 @@ describe CardCountingPlayer do
       it 'should calculate a probability of 0 for getting a QH' do
         expect(@sut.probability_of_getting 1, :of => ['QH']).to eq 0
       end
+
+      it 'should calculate a probability of 12/50 for getting a 3H' do
+        expect(@sut.probability_of_getting 1, :of => ['3H']).to eq 12.0/50.0
+      end
     end
   end
 end
