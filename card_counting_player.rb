@@ -8,6 +8,14 @@ class CardCountingPlayer < Player
   def put_in_middle?(card)
   end
 
+  def probability_of_a_two_of_a_kind(row)
+    if row == :middle
+      3.0/40.0
+    else
+      1.0/10.0
+    end
+  end
+
   def probability_of_getting(number, options={})
     return 1.0 if number <= 0 || options[:of].nil?
 

@@ -122,4 +122,35 @@ describe CardCountingPlayer do
       end
     end
   end
+
+  describe 'probability_of_a_two_of_a_kind' do
+    context 'when 12 cards have been dealt, with no pairs yet' do
+      before :each do
+        @sut = CardCountingPlayer.new(
+          :top => ['2H', '3H', '4H'],
+          :middle => ['2C', '3C', '4C', '5C', '7S'],
+          :bottom => ['2S', '3S', '4S', '5S']
+        )
+      end
+
+      it 'should return 1/10' do
+        # four possible pairs (2's, 3's, 4's, 5's)
+        expect(@sut.probability_of_a_two_of_a_kind :bottom).to eq 1.0/10.0
+      end
+    end
+
+    context 'when 12 cards have been dealt and there is a pair in the bottom' do
+      before :each do
+        @sut = CardCountingPlayer.new(
+          :top => ['2H', '3H', '5H'],
+          :middle => ['2C', '3C', '4C', '5C'],
+          :bottom => ['2S', '3S', '4S', '5S', '5H']
+        )
+      end
+
+      it 'should return a 3/40 since a pair of 5s is not longer possible' do
+        expect(@sut.probability_of_a_two_of_a_kind :middle).to eq 3.0/40.0
+      end
+    end
+  end
 end
