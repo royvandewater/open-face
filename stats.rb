@@ -2,11 +2,11 @@
 
 require 'active_support/core_ext/object' # provides try and other goodies :-)
 require 'progressbar'
-require_relative 'deck'
-require_relative 'bayesian_player'
-require_relative 'dumb_player'
-require_relative 'card_counting_player'
-require_relative 'ai_player'
+require_relative 'lib/deck'
+require_relative 'lib/bayesian_player'
+require_relative 'lib/dumb_player'
+require_relative 'lib/card_counting_player'
+require_relative 'lib/ai_player'
 require_relative 'open_face'
 
 class Stats

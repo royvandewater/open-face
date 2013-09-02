@@ -1,5 +1,5 @@
 require_relative 'spec_helper'
-require_relative '../hand'
+require_relative '../lib/hand'
 
 describe Hand do
   describe "initialize" do
@@ -351,7 +351,7 @@ describe Hand do
         @hand1 = Hand.new :size => 5, :cards => ['4H', '7C', '8C', '5S', '6D']
         @hand2 = Hand.new :size => 5, :cards => ['JS', 'KH', 'KS', 'JH', '9D']
       end
-      
+
       it "should return 1 when hand1 is space shipped with hand2" do
         (@hand1 <=> @hand2).should == 1
       end

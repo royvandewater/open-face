@@ -1,5 +1,5 @@
 require_relative 'spec_helper'
-require_relative '../dumb_player'
+require_relative '../lib/dumb_player'
 
 describe DumbPlayer do
   describe 'take_initial' do

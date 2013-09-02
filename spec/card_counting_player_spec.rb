@@ -1,5 +1,5 @@
 require_relative 'spec_helper'
-require_relative '../card_counting_player'
+require_relative '../lib/card_counting_player'
 
 describe CardCountingPlayer do
   describe 'probability_of_getting_a' do
@@ -127,29 +127,44 @@ describe CardCountingPlayer do
     context 'when 12 cards have been dealt, with no pairs yet' do
       before :each do
         @sut = CardCountingPlayer.new(
-          :top => ['2H', '3H', '4H'],
+          :top =>    ['2H', '3H', '4H'],
           :middle => ['2C', '3C', '4C', '5C', '7S'],
           :bottom => ['2S', '3S', '4S', '5S']
         )
       end
 
-      it 'should return 1/10' do
-        # four possible pairs (2's, 3's, 4's, 5's)
-        expect(@sut.probability_of_a_two_of_a_kind :bottom).to eq 1.0/10.0
+      it 'should return 5/40' do
+        # five possible pairs, two 5's and one each of 2,3,4
+        expect(@sut.probability_of_a_two_of_a_kind :bottom).to eq 5.0/40.0
       end
     end
 
     context 'when 12 cards have been dealt and there is a pair in the bottom' do
       before :each do
         @sut = CardCountingPlayer.new(
-          :top => ['2H', '3H', '5H'],
+          :top =>    ['2H', '3H', '5D'],
           :middle => ['2C', '3C', '4C', '5C'],
           :bottom => ['2S', '3S', '4S', '5S', '5H']
         )
       end
 
-      it 'should return a 3/40 since a pair of 5s is not longer possible' do
-        expect(@sut.probability_of_a_two_of_a_kind :middle).to eq 3.0/40.0
+      it 'should return a 1/10, two 4s, one each of 2,3' do
+        expect(@sut.probability_of_a_two_of_a_kind :middle).to eq 1.0/10.0
+      end
+    end
+
+    context 'when 5 cards have been dealt' do
+      before :each do
+        @sut = CardCountingPlayer.new(
+          :top =>    ['2C'],
+          :middle => ['5D', '7S'],
+          :bottom => ['JH', 'QH']
+        )
+      end
+
+      it 'should return ?' do
+        answer = @sut.probability_of_getting 1, :of => ['JS', 'JC', 'JD', 'QS', 'QC', 'QD']
+        expect(@sut.probability_of_a_two_of_a_kind :bottom).to be_within(0.00001).of answer
       end
     end
   end

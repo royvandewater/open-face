@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 require 'debugger'
-require_relative 'deck'
-require_relative 'dumb_player'
+require_relative 'lib/deck'
+require_relative 'lib/dumb_player'
 
 class DebugGame
   attr_accessor :player

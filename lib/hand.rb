@@ -59,6 +59,10 @@ class Hand
     @cards.include? card
   end
 
+  def map(&block)
+    @cards.map &block
+  end
+
   def royal_flush
     14 if straight and flush and high_card == 14
   end

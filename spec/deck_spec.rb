@@ -1,5 +1,5 @@
 require_relative 'spec_helper'
-require_relative '../deck'
+require_relative '../lib/deck'
 
 describe Deck do
   describe 'Dealing the next card' do
@@ -18,7 +18,7 @@ describe Deck do
       @deck = Deck.new
       @cards = []
       52.times do
-        @cards << @deck.next_card 
+        @cards << @deck.next_card
       end
     end
 

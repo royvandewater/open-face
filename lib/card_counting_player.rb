@@ -2,6 +2,7 @@ require_relative 'player'
 require 'active_support/core_ext/enumerable' # provides sum
 
 class CardCountingPlayer < Player
+  SUITES = %w{H D S C}
   def put_in_bottom?(card)
   end
 
@@ -9,11 +10,9 @@ class CardCountingPlayer < Player
   end
 
   def probability_of_a_two_of_a_kind(row)
-    if row == :middle
-      3.0/40.0
-    else
-      1.0/10.0
-    end
+    row_cards = cards_in row
+    puts "all_suites: #{all_suites row_cards}"
+    probability_of_getting 1, :of => all_suites(row_cards)
   end
 
   def probability_of_getting(number, options={})
@@ -48,7 +47,25 @@ class CardCountingPlayer < Player
     end
   end
 
+  def all_suites(cards)
+    cards.map do |card|
+      face_value = card[0..-2]
+      SUITES.map do |suite|
+        "#{face_value}#{suite}"
+      end
+    end.flatten
+  end
+
   def cards
     hands.sum &:cards
+  end
+
+  def cards_in(row)
+    case row
+    when :top then @top
+    when :middle then @middle
+    when :bottom then @bottom
+    else raise 'not a valid row type'
+    end
   end
 end

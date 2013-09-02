@@ -1,5 +1,5 @@
 require_relative 'spec_helper'
-require_relative '../ai_player'
+require_relative '../lib/ai_player'
 
 describe AIPlayer do
   describe "value of a card" do

@@ -1,10 +1,10 @@
 #!/usr/bin/env ruby
 
 require 'active_support/core_ext/array' # provides second and other goodies :-)
-require_relative 'deck'
-require_relative 'ai_player'
-require_relative 'dumb_player'
-require_relative 'negotiator'
+require_relative 'lib/deck'
+require_relative 'lib/ai_player'
+require_relative 'lib/dumb_player'
+require_relative 'lib/negotiator'
 
 class OpenFace
   def initialize(options={})
