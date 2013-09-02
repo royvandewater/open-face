@@ -10,9 +10,8 @@ class CardCountingPlayer < Player
   end
 
   def probability_of_a_two_of_a_kind(row)
-    row_cards = cards_in row
-    puts "all_suites: #{all_suites row_cards}"
-    probability_of_getting 1, :of => all_suites(row_cards)
+    hand = hand_for row
+    probability_of_getting 1, :of => all_suites(hand)
   end
 
   def probability_of_getting(number, options={})
@@ -60,7 +59,7 @@ class CardCountingPlayer < Player
     hands.sum &:cards
   end
 
-  def cards_in(row)
+  def hand_for(row)
     case row
     when :top then @top
     when :middle then @middle
