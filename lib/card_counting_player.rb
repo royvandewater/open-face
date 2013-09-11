@@ -1,8 +1,10 @@
 require_relative 'player'
 require 'active_support/core_ext/enumerable' # provides sum
+require 'ofcp_card_counter'
 
 class CardCountingPlayer < Player
   SUITES = %w{H D S C}
+
   def put_in_bottom?(card)
   end
 
@@ -15,22 +17,11 @@ class CardCountingPlayer < Player
   end
 
   def probability_of_getting(number, options={})
-    return 1.0 if number <= 0 || options[:of].nil?
-
-    targets = options[:of] - all_cards
-    targets_left = targets.count.to_f
-    chances_left = (options[:chances_left] || 13 - cards.count).to_f
-    cards_left   = (options[:cards_left]   || 52 - all_cards.count).to_f
-
-    return 0.0 if chances_left < number
-
-    successful_case  = targets_left / cards_left
-    successful_case *= probability_of_getting (number - 1), :of => targets[1..-1], :cards_left => (cards_left - 1), :chances_left => (chances_left - 1)
-
-    unsuccessful_case  = (cards_left - targets_left) / cards_left
-    unsuccessful_case *= probability_of_getting number, :of => targets, :cards_left => (cards_left - 1), :chances_left => (chances_left - 1)
-
-    successful_case + unsuccessful_case
+    card_counter = OfcpCardCounter::CardCounter.new(
+      :turns_left => turns_left,
+      :cards      => all_cards
+    )
+    card_counter.probability_of_getting number, options
   end
 
   def probability_of_getting_a(card)
@@ -66,5 +57,9 @@ class CardCountingPlayer < Player
     when :bottom then @bottom
     else raise 'not a valid row type'
     end
+  end
+
+  def turns_left
+    13 - cards.count
   end
 end
